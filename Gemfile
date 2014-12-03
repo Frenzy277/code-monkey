@@ -3,6 +3,7 @@ ruby '2.1.5'
 
 gem 'rails', '4.1.8'
 gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 gem 'bootstrap_form'
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.3'

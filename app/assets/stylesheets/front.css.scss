@@ -1,0 +1,57 @@
+section.jumbotron.front {
+  background: asset-data-url("programming-wallpaper.jpg");
+  height: 550px;
+  aside.teaser {
+    position: relative;
+    background-color: #f8f8f8;
+    margin-top: 30px;
+    width: 43%;
+    min-width: 267px;
+    .row {
+      margin: 0;
+      padding: 10px 0;
+      position: relative;
+      .logo {
+        text-align: center;
+        img {
+          margin-bottom: 15px;
+        }
+      }
+    }
+    h3 {
+      margin-top: -10px;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}
+
+span.bracket {
+  padding: 0;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+div.languages {
+  margin: 0 5px 5px 20px;
+  padding-bottom: 20px;
+  > a {
+    width: 100px;
+    border: 1px solid #66CCFF;
+    padding: 10px;
+    margin: 6px 5px;
+    &:hover {
+      color: white;
+      background: { color: #66CCFF; }
+    }
+  }
+}
+
+.marketing {
+  margin-bottom: 200px;
+  text-align: center;
+  h1 { 
+    font-weight: bold;
+    font-size: 70px;
+  }
+}

@@ -1,0 +1,20 @@
+%section.jumbotron
+  %header
+    .container
+      %nav
+        %ul
+          %li= link_to "Sign up"
+          %li= link_to "Sign in"
+%article.skill_mentors
+  %header
+    %h3 Rails Mentors
+  .mentors.row
+    - 3.times do
+      .mentor.col-sm-4
+        %header
+          %h1 Photo here
+        %div.mentor-body
+          %p experience since: 2009
+          %p recommended by: 150
+          = link_to "Mentoring"
+          = link_to "Code Review"

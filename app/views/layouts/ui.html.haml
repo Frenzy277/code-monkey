@@ -1,0 +1,16 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title CodeMonkey UI
+    %meta(charset="UTF-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    - if params[:controller] == 'ui' && %w(index front sign_in sign_up).include?(params[:action])
+      = yield
+    - else
+      = render 'ui/header'
+      = yield
+      = render 'ui/footer'

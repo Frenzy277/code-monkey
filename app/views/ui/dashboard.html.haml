@@ -1,0 +1,96 @@
+%section.jumbotron.dashboard
+  .container
+    %div
+      %span.photo
+      %span.welcome
+        %h1 Welcome to DevPledge, John!
+        %h3 A community of developers helping each other
+        %p Mentor the next generation of developers or learn from the best
+.container
+  .row
+    .col-sm-8
+      %h2.mid-headers Select language of your choice
+      %div.list-group
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading HTML
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading CSS
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Javascript
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Rails
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Ruby
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading SQL
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+    .col-sm-4
+      %table.table
+        %thead
+          %tr
+            %th(colspan="4" style="text-align: center;") Signed For
+        %tbody
+          %tr
+            %td 1
+            %td HTML
+            %td 
+              %span on
+              12/02/2014
+            %td 
+              to #{ link_to "John S." }
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td 2
+            %td Ruby
+            %td 
+              %span on
+              12/02/2014
+            %td
+              to #{ link_to "John S." }
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td 3
+            %td Javascript
+            %td 
+              %span on
+              12/03/2014
+            %td
+              to #{ link_to "John S." }
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+  %h2.mid-headers How to get started?
+  %h4 We are excited to help you grow as developer. Here is how it works:
+  %dl.col-sm-8
+    %dt.col-sm-2
+      %span.cirle 1
+    %dd.col-sm-10
+      %h4 Select a language or framework
+      %p 
+        %em Improve your skills or provide help to others. Just select a field of expertise.
+    %dt.col-sm-2
+      %span.cirle 2
+    %dd.col-sm-10
+      %h4 Pick or become a Mentor
+      %p
+        %em Select any professional for mentoring or code reviewing or simply become a mentor.
+    %dt.col-sm-2
+      %span.cirle 3
+    %dd.col-sm-10
+      %h4 Give or receive 1 hour coding help
+      %p
+        %em Choose one and get in touch with your mentor to boost your skills or 
+
+    

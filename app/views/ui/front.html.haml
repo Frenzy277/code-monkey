@@ -1,0 +1,26 @@
+%nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
+  .container
+    %ul.nav.navbar-nav.pull-right
+      %li= link_to "Sign up"
+      %li= link_to "Sign in"
+%section.jumbotron.front
+  .container
+    %aside.teaser
+      .row
+        .logo
+          = image_tag("logo.jpg", alt: "search_monkey")
+      %h3 What do you need help with?
+      %div.languages
+        = link_to "HTML", "#", class: "btn"
+        = link_to "CSS", "#", class: "btn"
+        = link_to "Javascript", "#", class: "btn"
+        = link_to "Rails", "#", class: "btn"
+        = link_to "Ruby", "#", class: "btn"
+        = link_to "SQL", "#", class: "btn"
+        = link_to "Python", "#", class: "btn"
+        = link_to "Java", "#", class: "btn"
+%section.container
+  %div.marketing
+    %h1 Code smarter
+    %h3 Give or receive an hour of coding help from experienced developers.
+    %h3 Become a member of community and mentor next generation of software developers.

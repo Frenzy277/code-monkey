@@ -1,0 +1,76 @@
+%section.jumbotron
+  %header
+    .container
+      %nav
+        %ul
+          %li= link_to "Sign up"
+          %li= link_to "Sign in"
+%section.my_queue.container
+  .row
+    %fieldset
+      %legend
+        %h2 Arrangements Queue
+      %table.table
+        %thead
+          %tr
+            %th(width="5%") Order
+            %th(width="20%") Language
+            %th(width="18%") Sign up date
+            %th(width="13%") Requester
+            %th(width="12%") Type
+            %th(width="12%") Github repo
+            %th(width="13%") Status
+            %th(width="12%") Decline
+        %tbody
+          %tr
+            %td
+              %input.form-control(type="text" value="1")
+            %td HTML
+            %td 12/02/2014 1:15 PM EST
+            %td= link_to "John Doe"
+            %td Code Review
+            %td= link_to "here"
+            %td
+              %select(name="")
+                %option(value="1") Pending
+                %option(value="2") Accepted
+                %option(value="3") Rejected
+                %option(value="4") Completed
+            %td
+              = link_to "", method: :post do
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td
+              %input.form-control(type="text" value="2")
+            %td Rails
+            %td 12/02/2014 5:12 PM EST
+            %td= link_to "John Doe"
+            %td Mentoring
+            %td
+            %td
+              %select(name="")
+                %option(value="1") Pending
+                %option(value="2") Accepted
+                %option(value="3") Rejected
+                %option(value="4") Completed
+            %td
+              = link_to "", method: :post do
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td
+              %input.form-control(type="text" value="3")
+            %td Javascript
+            %td 01/03/2015 1:15 PM EST
+            %td= link_to "John Doe"
+            %td Mentoring
+            %td
+            %td
+              %select(name="")
+                %option(value="1") Pending
+                %option(value="2") Accepted
+                %option(value="3") Rejected
+                %option(value="4") Completed
+            %td
+              = link_to "", method: :post do
+                %i.glyphicon.glyphicon-remove
+      = button_to "Update Queue", nil, class: "btn btn-default"

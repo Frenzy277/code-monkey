@@ -1,0 +1,64 @@
+%section.jumbotron
+  %header
+    .container
+      %nav
+        %ul
+          %li= link_to "Sign up"
+          %li= link_to "Sign in"
+  %section.user_details
+    %span Photo
+    %ul
+      %li
+        %h1 John Smith
+      %li
+        About
+        %p= Faker::Lorem.words(10).join(" ")
+
+%section.user_skills
+  %header
+    %h3 Rails Mentors
+  .mentors.row
+    .mentor.col-sm-2
+      %header
+        %h1 HTML 
+      %div.mentor-body
+        %p experience since: 2009
+        %p Mentorships given:
+        %p code reviews given:
+        %p recommended by: 150
+        = link_to "Mentoring"
+        %br
+        = link_to "Code Review"
+    .mentor.col-sm-2
+      %header
+        %h1 CSS
+      %div.mentor-body
+        %p Experience since: 2009
+        %p Mentorships given: 150
+        %p Code reviews given: 50
+        %p Recommended by: 150
+        = link_to "Mentoring"
+        %br
+        = link_to "Code Review"
+    .mentor.col-sm-2
+      %header
+        %h1 Rails
+      %div.mentor-body
+        %p Experience since: 2014
+        %p Mentorships given: 150
+        %p Code reviews given:
+        %p Recommended by: 150
+        = link_to "Mentoring"
+        %br
+        = link_to "Code Review"
+    .mentor.col-sm-2
+      %header
+        %h1 Javascript
+      %div.mentor-body
+        %p Experience since: 2014
+        %p Mentorships given: 250
+        %p Code reviews given: 24
+        %p Recommended by: 150
+        = link_to "Mentoring"
+        %br
+        = link_to "Code Review"

@@ -7,10 +7,11 @@
   .container
     %aside.teaser
       .row
-        .logo
-          = image_tag("logo.jpg", alt: "search_monkey")
+        %span.bracket { dev: 
+        %span= image_tag("search_monkey.png", alt: "search_monkey", size: "70x50")
+        %span.bracket pledge }
       %h3 What do you need help with?
-      %div.languages
+      .languages
         = link_to "HTML", "#", class: "btn"
         = link_to "CSS", "#", class: "btn"
         = link_to "Javascript", "#", class: "btn"

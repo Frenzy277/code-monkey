@@ -3,18 +3,21 @@ section.jumbotron.front
   height: 550px
   aside.teaser
     position: relative
-    background-color: #f8f8f8
+    background-color: rgba(248, 248, 248, 0.4)
+    color: white
     margin-top: 30px
     width: 43%
     min-width: 267px
+    &:hover
+      -webkit-box-shadow: 1px 1px 100px 20px rgba(0,255,255,0.2)
+      box-shadow: 1px 1px 100px 20px rgba(0,255,255,0.2)
     .row
       margin: 0
       padding: 10px 0
       position: relative
-      .logo
-        text-align: center
-        img
-          margin-bottom: 15px
+      text-align: center
+      img
+        margin-bottom: 15px
     h3
       margin-top: -10px
       font-weight: bold
@@ -24,16 +27,17 @@ span.bracket
   font-size: 40px
   font-weight: bold
 
-div.languages
+.languages
   margin: 0 5px 5px 20px
-  padding-bottom: 20px
+  padding-bottom: 20px  
   > a
+    color: white
     width: 100px
     border: 1px solid #66CCFF
     padding: 10px
     margin: 6px 5px
     &:hover
-      color: white
+      color: inherit
       background-color: #66CCFF
 .marketing
   margin-bottom: 200px

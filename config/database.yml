@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: code_monkey_development
+  database: dev_pledge_development
   pool: 5
   username: tomas
   password: YOUR_PASSWORD
@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: code_monkey_test
+  database: dev_pledge_test
   pool: 5
   username: tomas
   password: YOUR_PASSWORD

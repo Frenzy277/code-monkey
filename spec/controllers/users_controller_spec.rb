@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe UsersController do
-  
+
   describe "GET new" do
     it "sets the @user" do
       get :new
       expect(assigns(:user)).to be_instance_of(User)
-    end  
+    end
   end
 
   describe "POST create" do
@@ -32,7 +32,7 @@ describe UsersController do
         post :create, user: Fabricate.attributes_for(:user, email: "foo@bar")
         expect(User.count).to eq(0)
       end
-      
+
       it "renders the :new template" do
         post :create, user: Fabricate.attributes_for(:user, email: "foo@bar")
         expect(response).to render_template :new

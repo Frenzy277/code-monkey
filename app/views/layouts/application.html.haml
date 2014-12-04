@@ -8,7 +8,7 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    - if params[:controller] == 'pages' && params[:action] == 'front'
+    - if current_page?(root_path) || current_page?(sign_up_path)
       = yield
     - else
       = render 'shared/header'

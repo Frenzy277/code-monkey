@@ -7,9 +7,14 @@ feature "front page content" do
     expect(page).to have_content "{ dev: pledge }"
   end
 
-  scenario "has basic navigation links" do
-    find_link('Sign in').visible?
-    find_link('Sign up').visible?
+  scenario "has working sign up link" do
+    click_on "Sign up"
+    expect(current_path).to eq(sign_up_path)
   end
+
+  # scenario "has working sign in link" do
+  #   click_on "Sign in"
+  #   expect(current_path).to eq(sign_in_path)
+  # end
 
 end

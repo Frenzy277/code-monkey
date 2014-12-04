@@ -1,64 +1,152 @@
-%section.jumbotron
-  %header
-    .container
-      %nav
-        %ul
-          %li= link_to "Sign up"
-          %li= link_to "Sign in"
-  %section.user_details
-    %span Photo
-    %ul
-      %li
-        %h1 John Smith
-      %li
-        About
-        %p= Faker::Lorem.words(10).join(" ")
+%section.jumbotron.user
+  .container
+    .row
+      .col-sm-2
+        .thumbnail.circ
+          = image_tag("code monkey.png", alt: "John Smith")
+      .col-sm-10
+        %h1.user-name John Smith
+    %h2 About
+    %p= Faker::Lorem.words(100).join(" ")
+  
+    %article.skill_mentors
+      %h2 Mentoring in these areas
+      .row
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("html.jpg", alt: "html")
+            .caption
+              %p
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("css.jpg", alt: "css")
+            .caption
+              %p 
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("angular.jpg", alt: "angular")
+            .caption
+              %p 
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("rails.jpg", alt: "rails")
+            .caption
+              %p 
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("ruby.jpg", alt: "ruby")
+            .caption
+              %p 
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
+        .col-sm-6.col-md-4
+          .thumbnail
+            = image_tag("jquery.jpg", alt: "jquery")
+            .caption
+              %p 
+                Experience since:
+                %span.badge 2009
+              %p Code helped in: 20 projects
+              %p
+                %a(href="" data-toggle="modal" data-target="#RecommendationModal")Recommendations:
+                %span.badge 9
+              %p.thumbnail-buttons
+                Ask for:
+                %a(href="#" class="btn btn-primary" role="button")Mentoring
+                %a(href="#" class="btn btn-default" role="button")Code Review
 
-%section.user_skills
-  %header
-    %h3 Rails Mentors
-  .mentors.row
-    .mentor.col-sm-2
-      %header
-        %h1 HTML 
-      %div.mentor-body
-        %p experience since: 2009
-        %p Mentorships given:
-        %p code reviews given:
-        %p recommended by: 150
-        = link_to "Mentoring"
-        %br
-        = link_to "Code Review"
-    .mentor.col-sm-2
-      %header
-        %h1 CSS
-      %div.mentor-body
-        %p Experience since: 2009
-        %p Mentorships given: 150
-        %p Code reviews given: 50
-        %p Recommended by: 150
-        = link_to "Mentoring"
-        %br
-        = link_to "Code Review"
-    .mentor.col-sm-2
-      %header
-        %h1 Rails
-      %div.mentor-body
-        %p Experience since: 2014
-        %p Mentorships given: 150
-        %p Code reviews given:
-        %p Recommended by: 150
-        = link_to "Mentoring"
-        %br
-        = link_to "Code Review"
-    .mentor.col-sm-2
-      %header
-        %h1 Javascript
-      %div.mentor-body
-        %p Experience since: 2014
-        %p Mentorships given: 250
-        %p Code reviews given: 24
-        %p Recommended by: 150
-        = link_to "Mentoring"
-        %br
-        = link_to "Code Review"
+
+/ Modal
+.modal.fade#RecommendationModal(tabindex="-1" role="dialog" aria-labelledby="Recommendations" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#Recommendations
+          %span.glyphicon.glyphicon-bullhorn
+            Feedback: John Doe    
+      .modal-body
+        .row
+          .col-sm-2.modal-feedback-photo
+            .thumbnail.modal-image
+              = image_tag("code monkey.png", alt: "John Smith")
+            %span.glyphicon.glyphicon-thumbs-up
+            %a(href="") Jessica D.
+          .col-sm-10
+            %h4.feedback-language HTML
+            %p.user-feedbak= Faker::Lorem.words(10).join(" ")
+            %hr
+        .row
+          .col-sm-2.modal-feedback-photo
+            .thumbnail.modal-image
+              = image_tag("code monkey.png", alt: "John Smith")
+            %span.glyphicon.glyphicon-thumbs-up
+            %span.fullname
+              %a(href="") Jessica D.
+          .col-sm-10
+            %h4.feedback-language CSS
+            %p.user-feedbak= Faker::Lorem.words(100).join(" ")
+            %hr
+        .row
+          .col-sm-2.modal-feedback-photo
+            .thumbnail.modal-image
+              = image_tag("code monkey.png", alt: "John Smith")
+            %span.glyphicon.glyphicon-thumbs-down
+            %span.fullname
+              %a(href="") Kevin L.
+          .col-sm-10
+            %h4.feedback-language Rails
+            %p.user-feedbak= Faker::Lorem.words(20).join(" ")
+            %hr  
+      .modal-footer
+        %button(type="button" class="btn btn-default" data-dismiss="modal") Close
+        

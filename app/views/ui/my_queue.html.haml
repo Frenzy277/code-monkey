@@ -1,15 +1,9 @@
-%section.jumbotron
-  %header
-    .container
-      %nav
-        %ul
-          %li= link_to "Sign up"
-          %li= link_to "Sign in"
-%section.my_queue.container
+%section.jumbotron.arrange_queue
+  .container
+    %h1 Arrangements Queue
+.container
   .row
     %fieldset
-      %legend
-        %h2 Arrangements Queue
       %table.table
         %thead
           %tr
@@ -35,7 +29,6 @@
                 %option(value="1") Pending
                 %option(value="2") Accepted
                 %option(value="3") Rejected
-                %option(value="4") Completed
             %td
               = link_to "", method: :post do
                 %i.glyphicon.glyphicon-remove
@@ -52,7 +45,6 @@
                 %option(value="1") Pending
                 %option(value="2") Accepted
                 %option(value="3") Rejected
-                %option(value="4") Completed
             %td
               = link_to "", method: :post do
                 %i.glyphicon.glyphicon-remove
@@ -69,7 +61,6 @@
                 %option(value="1") Pending
                 %option(value="2") Accepted
                 %option(value="3") Rejected
-                %option(value="4") Completed
             %td
               = link_to "", method: :post do
                 %i.glyphicon.glyphicon-remove

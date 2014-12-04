@@ -1,19 +1,25 @@
-%section.container
-  %article.entry
-    %header.logo
-    %form
-      %fieldset
+%section.jumbotron.sign
+  .container.col-sm-offset-4
+    %h1 Sign Up
+    %article.well.col-sm-5
+      %form.form-horizontal(role="form")
         .form-group
-          %label First Name
-          %input(type="text")
+          %label.control-label.col-sm-3 First Name
+          .col-sm-9
+            %input.form-control(type="text")
         .form-group
-          %label Last Name
-          %input(type="text")
+          %label.control-label.col-sm-3 Last Name
+          .col-sm-9
+            %input.form-control(type="text")
         .form-group
-          %label Email Address
-          %input(type="email")
+          %label.control-label.col-sm-3 Email
+          .col-sm-9
+            %input.form-control(type="email")
         .form-group
-          %label Password
-          %input(type="password")
-      %fieldset.form-group
-        %input(type="submit" value="Create account")
+          %label.control-label.col-sm-3 Password
+          .col-sm-9
+            %input.form-control(type="password")
+        .form-group
+          %label.control-label.col-sm-3
+          .col-sm-9
+            %input.form-control.btn.btn-danger(type="submit" value="Create account")

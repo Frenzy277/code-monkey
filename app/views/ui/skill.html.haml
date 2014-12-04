@@ -1,20 +1,25 @@
-%section.jumbotron
-  %header
-    .container
-      %nav
-        %ul
-          %li= link_to "Sign up"
-          %li= link_to "Sign in"
-%article.skill_mentors
-  %header
-    %h3 Rails Mentors
-  .mentors.row
+%section.jumbotron.skills
+  .container
+    %h1 
+      %span.glyphicon.glyphicon-list
+      HTML Mentors
+    %a.btn.btn-danger.btn-lg(href="" role="button")
+      %span.glyphicon.glyphicon-certificate
+      Become a Mentor
+%article.container.skill_mentors
+  .row
     - 3.times do
-      .mentor.col-sm-4
-        %header
-          %h1 Photo here
-        %div.mentor-body
-          %p experience since: 2009
-          %p recommended by: 150
-          = link_to "Mentoring"
-          = link_to "Code Review"
+      .col-sm-6.col-md-4
+        .thumbnail
+          = image_tag("html.jpg", alt: "html")
+          .caption
+            %p
+              Experience since:
+              %span.badge 2009
+            %p Code helped in: 20 projects
+            %p
+              %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+              %span.badge 9
+            %p.thumbnail-buttons
+              %a(href="#" class="btn btn-primary" role="button")Mentoring
+              %a(href="#" class="btn btn-default" role="button")Code Review

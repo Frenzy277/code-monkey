@@ -8,7 +8,7 @@
         %p Mentor the next generation of developers or learn from the best
 .container
   .row
-    .col-sm-8
+    .col-sm-6
       %h2.mid-headers Select language of your choice
       %div.list-group
         %a.list-group-item
@@ -35,45 +35,56 @@
           %span.badge 14
           %h4.list-group-heading SQL
           %p.list-group-text= Faker::Lorem.words(3).join(" ")
-    .col-sm-4
+    .col-sm-6
       %table.table
         %thead
           %tr
-            %th(colspan="4" style="text-align: center;") Signed For
+            %th(colspan="7" style="text-align: center;") Signed For
+          %tr
+            %th(width="3%") #
+            %th(width="20%") Language
+            %th(width="25%") When?
+            %th(width="15%") Status
+            %th(width="15%") Feedback
+            %th(width="17%") Mentor
+            %th(width="5%") Action
         %tbody
           %tr
             %td 1
             %td HTML
+            %td on 12/02/2014
+            %td pending
             %td 
-              %span on
-              12/02/2014
-            %td 
-              to #{ link_to "John S." }
+              %a(href="" data-toggle="modal" data-target="#FeedbackFormModal") feedback
+            %td to #{ link_to "John S." }
+            %td
               %a.pull-right(href="")
                 %i.glyphicon.glyphicon-remove
           %tr
             %td 2
             %td Ruby
+            %td on 12/02/2014
+            %td pending
             %td 
-              %span on
-              12/02/2014
+              %a(href="" data-toggle="modal" data-target="#FeedbackFormModal") feedback
+            %td to #{ link_to "John S." }
             %td
-              to #{ link_to "John S." }
               %a.pull-right(href="")
                 %i.glyphicon.glyphicon-remove
           %tr
             %td 3
             %td Javascript
+            %td on 12/03/2014
+            %td pending
             %td 
-              %span on
-              12/03/2014
+              %a(href="" data-toggle="modal" data-target="#FeedbackFormModal") feedback
+            %td to #{ link_to "John S." }
             %td
-              to #{ link_to "John S." }
               %a.pull-right(href="")
                 %i.glyphicon.glyphicon-remove
   %h2.mid-headers How to get started?
   %h4 We are excited to help you grow as developer. Here is how it works:
-  %dl.col-sm-8
+  %dl.queue.col-sm-8
     %dt.col-sm-2
       %span.cirle 1
     %dd.col-sm-10
@@ -93,4 +104,20 @@
       %p
         %em Choose one and get in touch with your mentor to boost your skills or 
 
-    
+.modal.fade#FeedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#Feedback
+          %span.glyphicon.glyphicon-bullhorn
+            Feedback on John Doe
+      %form.form-horizontal(role="form")
+        .modal-body
+          .col-sm-12.form-group
+            %label.control-label Feedback form:
+            %textarea.form-control(rows="5" placeholder="Your feedback goes here.")
+        .modal-footer
+          %button(type="button" class="btn btn-default" data-dismiss="modal") Close
+          %button(type="submit" class="btn btn-primary") Submit Feedback

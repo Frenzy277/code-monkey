@@ -1,10 +1,14 @@
-%section.container.ui
-  .panel.panel-primary
-    .panel-heading
-      %h3.panel-title UI Controller
-    .panel-body
-      %ul
-      - Dir.glob('app/views/ui/*.html.haml').sort.each do |file|
-        - wireframe = File.basename(file, '.html.haml')
-        -   unless wireframe == 'index' || wireframe.match(/^_/)
-          %li= link_to wireframe.titleize, action: wireframe unless wireframe == 'index'
+.container
+  %section.ui
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title UI Controller
+      .panel-body
+        %ul
+        - Dir.glob('app/views/ui/*.html.haml').sort.each do |file|
+          - wireframe = File.basename(file, '.html.haml')
+          -   unless wireframe == 'index' || wireframe.match(/^_/)
+            %li= link_to wireframe.titleize, action: wireframe unless wireframe == 'index'
+  %article
+    %h3 Entity Relationship Diagram
+    = image_tag("DevPledge.png", alt: "dev_pledge_ERD")

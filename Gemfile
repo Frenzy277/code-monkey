@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'pg'
+gem 'faker'
 
 group :development do
   gem 'thin'
@@ -23,8 +24,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'spring-commands-rspec'
-  gem 'faker'
+  gem 'spring-commands-rspec'  
   gem 'fabrication'
   gem 'pry'
   gem 'pry-nav'

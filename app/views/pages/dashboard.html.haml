@@ -1,0 +1,119 @@
+%section.jumbotron.dashboard
+  .container
+    %span.welcome
+      %h1 Welcome to DevPledge, #{current_user.first_name}
+      %h3 A community of developers helping each other
+      %p Mentor the next generation of developers or learn from the best
+.container
+  .row
+    .col-sm-6
+      %h2.mid-headers Select language of your choice
+      %div.list-group
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading HTML
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading CSS
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Javascript
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Rails
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading Ruby
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        %a.list-group-item
+          %span.badge 14
+          %h4.list-group-heading SQL
+          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+    .col-sm-6
+      %table.table
+        %thead
+          %tr
+            %th(colspan="7" style="text-align: center;") Signed For
+          %tr
+            %th(width="3%") #
+            %th(width="20%") Language
+            %th(width="25%") When?
+            %th(width="15%") Status
+            %th(width="15%") Feedback
+            %th(width="17%") Mentor
+            %th(width="5%") Action
+        %tbody
+          %tr
+            %td 1
+            %td HTML
+            %td on 12/02/2014
+            %td pending
+            %td waiting on
+            %td= link_to "John S."
+            %td
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td 2
+            %td Ruby
+            %td on 12/02/2014
+            %td completed
+            %td submitted
+            %td= link_to "John S."
+            %td
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+          %tr
+            %td 3
+            %td Javascript
+            %td on 12/03/2014
+            %td completed
+            %td 
+              %a(href="" data-toggle="modal" data-target="#FeedbackFormModal") feedback
+            %td= link_to "John S."
+            %td
+              %a.pull-right(href="")
+                %i.glyphicon.glyphicon-remove
+  %h2.mid-headers How to get started?
+  %h4 We are excited to help you grow as developer. Here is how it works:
+  %dl.queue.col-sm-8
+    %dt.col-sm-2
+      %span.cirle 1
+    %dd.col-sm-10
+      %h4 Select a language or framework
+      %p 
+        %em Improve your skills or provide help to others. Just select a field of expertise.
+    %dt.col-sm-2
+      %span.cirle 2
+    %dd.col-sm-10
+      %h4 Pick or become a Mentor
+      %p
+        %em Select any professional for mentoring or code reviewing or simply become a mentor.
+    %dt.col-sm-2
+      %span.cirle 3
+    %dd.col-sm-10
+      %h4 Give or receive 1 hour coding help
+      %p
+        %em Choose one and get in touch with your mentor to boost your skills or 
+
+.modal.fade#FeedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#Feedback
+          %span.glyphicon.glyphicon-bullhorn
+          Feedback on John Doe
+      %form.form-horizontal(role="form")
+        .modal-body
+          .col-sm-12.form-group
+            %label.control-label Feedback form:
+            %textarea.form-control(rows="5" placeholder="Your feedback goes here.")
+        .modal-footer
+          %button(type="button" class="btn btn-default" data-dismiss="modal") Close
+          %button(type="submit" class="btn btn-primary") Submit Feedback

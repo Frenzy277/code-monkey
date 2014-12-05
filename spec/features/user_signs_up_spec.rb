@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "user signs up" do
 
-  scenario "successfull sign up" do
+  scenario "successfully" do
     visit sign_up_path
     expect(page).to have_content "Sign Up"
     expect(page).not_to have_selector "nav"
@@ -18,7 +18,7 @@ feature "user signs up" do
     expect(page).to have_content "Sign in"
   end
 
-  scenario "unsuccessfull sign up" do
+  scenario "unsuccessfully" do
     visit sign_up_path
 
     fill_in "First name", with: "Alice"

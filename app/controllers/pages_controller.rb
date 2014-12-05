@@ -1,5 +1,9 @@
 class PagesController < ApplicationController
   
-  layout "no_header"
+  def front
+    render :front, layout: "no_header"
+  end
 
+  def dashboard
+  end
 end

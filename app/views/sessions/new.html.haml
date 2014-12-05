@@ -2,16 +2,15 @@
   .container.col-sm-offset-4
     %h1 Sign in
     %article.well.col-sm-5
-      %form.form-horizontal(role="form")
+      = form_tag sign_in_path, class: "form-horizontal", role: "form" do |f|
         .form-group
-          %label.control-label.col-sm-3 Email
+          = label_tag :email, "Email", class: "control-label col-sm-3"
           .col-sm-9
-            %input.form-control(type="email")
+            = text_field_tag :email, nil, class: "form-control"
         .form-group
-          %label.control-label.col-sm-3 Password
+          = label_tag :password, "Password", class: "control-label col-sm-3"
           .col-sm-9
-            %input.form-control(type="password")
+            = password_field_tag :password, nil, class: "form-control"
         .form-group
-          %label.control-label.col-sm-3
-          .col-sm-9
-            %input.form-control.btn.btn-primary(type="submit" value="Sign in")
+          .col-sm-9.col-sm-offset-3
+            = submit_tag "Sign in", class: "btn btn-primary form-control"

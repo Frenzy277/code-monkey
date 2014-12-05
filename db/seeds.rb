@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+User.find_or_create(first_name: "Tom", last_name: "Tom", email: "tom@e.com", password: "password")
+Fabricate.times(4, :user)
+
+%w(HTML CSS Angular.js Ruby Rails jQuery SQL Java Python).each do |language|
+  Language.find_or_create(name: language, image_url: "#{language.downcase}.jpg")
+end

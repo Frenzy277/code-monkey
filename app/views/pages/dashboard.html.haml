@@ -9,30 +9,11 @@
     .col-sm-6
       %h2.mid-headers Select language of your choice
       %div.list-group
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading HTML
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading CSS
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading Javascript
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading Rails
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading Ruby
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
-        %a.list-group-item
-          %span.badge 14
-          %h4.list-group-heading SQL
-          %p.list-group-text= Faker::Lorem.words(3).join(" ")
+        - @languages.each do |language|
+          = link_to language_path(language), class: "list-group-item" do
+            %span.badge 14
+            %h4.list-group-heading= language.name
+            %p.list-group-text= Faker::Lorem.words(3).join(" ")
     .col-sm-6
       %table.table
         %thead

@@ -4,8 +4,7 @@ describe SessionsController do
   
   describe "GET new" do    
     it "redirects logged user to dashboard" do
-      alice = Fabricate(:user)
-      session[:user_id] = alice.id
+      set_current_user
       get :new
       expect(response).to redirect_to dashboard_url
     end
@@ -52,6 +51,32 @@ describe SessionsController do
       it "sets flash danger" do
         expect(flash[:danger]).to be_present
       end
+    end
+  end
+
+  describe "GET destroy" do
+    before { set_current_user }
+    
+    it "redirects to root url" do
+      get :destroy
+      expect(response).to redirect_to root_url
+    end
+
+    it "sets session to nil" do
+      get :destroy
+      expect(session[:user_id]).to be nil
+    end
+
+    it "sets flash success" do
+      get :destroy
+      expect(flash[:success]).to be_present
+    end
+
+    it "redirects for unauthorized user" do
+      clear_current_user
+      get :destroy
+      expect(flash).to be_empty
+      expect(response).to redirect_to root_url
     end
   end
 

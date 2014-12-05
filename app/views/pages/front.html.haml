@@ -5,6 +5,8 @@
       %li= link_to "Sign in", sign_in_path
 %section.jumbotron.front
   .container
+    .flash-messages-front
+      = render 'shared/flash_messages'
     %aside.teaser
       .row
         %span.bracket { dev: 

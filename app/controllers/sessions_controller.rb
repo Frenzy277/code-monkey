@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :require_user, only: [:destroy]
 
   layout "no_header"
 
@@ -17,7 +18,12 @@ class SessionsController < ApplicationController
       flash[:danger] = "Invalid email or password."
       render :new
     end
+  end
 
+  def destroy
+    session[:user_id] = nil
+    flash[:success] = "You have logged out."
+    redirect_to root_url
   end
 
 end

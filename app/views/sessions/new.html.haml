@@ -3,6 +3,7 @@
     %h1 Sign in
     %article.well.col-sm-5
       = form_tag sign_in_path, class: "form-horizontal", role: "form" do |f|
+        = render 'shared/flash_messages'
         .form-group
           = label_tag :email, "Email", class: "control-label col-sm-3"
           .col-sm-9

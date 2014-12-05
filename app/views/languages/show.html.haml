@@ -20,8 +20,8 @@
             %p Code helped in: #{skill.helped_total} projects
             %p
               %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-              %span.badge skill.total_feedbacks
+              %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
               = link_to "Mentoring", '#', class: "btn btn-primary", role: "button"
-              = link_to "Code Review", '#', class: "btn btn-primary", role: "button"
+              = link_to "Code Review", '#', class: "btn btn-default", role: "button"
               

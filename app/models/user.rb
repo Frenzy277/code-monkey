@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password validations: false
-  
+  has_many :skills
+
   before_save { |user| user.email = user.email.downcase }
 
   validates :first_name, :last_name, :email, :password, :balance, presence: true

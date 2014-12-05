@@ -25,7 +25,7 @@ describe User do
     expect(User.first.balance).to eq(1)
   end
   
-  it "creates user with email downcased" do
+  it "saves user with email downcased" do
     alice = Fabricate.build(:user, email: "ALICE@EXAMPLE.COM")
     alice.save
     expect(User.first.email).to eq("alice@example.com")

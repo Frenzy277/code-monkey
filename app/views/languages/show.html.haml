@@ -1,26 +1,27 @@
 %section.jumbotron.skills
   .container
-    %h1 
+    %h1
       %span.glyphicon.glyphicon-list
-      HTML Mentors
-    %a.btn.btn-danger.btn-lg(href="" role="button")
+      #{@language.name} Mentors
+    = link_to '#', class: "btn btn-danger btn-lg", role: "button" do
       %span.glyphicon.glyphicon-certificate
       Become a Mentor
 %article.container.skill_mentors
   .row
-    - 3.times do
+    - @language.skills.each do |skill|
       .col-sm-6.col-md-4
         .thumbnail
-          = image_tag("html.jpg", alt: "html")
+          = image_tag(@language.image_url, alt: @language.name)
           .caption
-            %h3.mentor-name John Doe
+            %h3.mentor-name= skill.mentor.full_name
             %p
               Experience since:
-              %span.badge 2009
-            %p Code helped in: 20 projects
+              %span.badge skill.experience
+            %p Code helped in: #{skill.helped_total} projects
             %p
               %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-              %span.badge 9
+              %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
-              %a(href="#" class="btn btn-primary" role="button")Mentoring
-              %a(href="#" class="btn btn-default" role="button")Code Review
+              = link_to "Mentoring", '#', class: "btn btn-primary", role: "button"
+              = link_to "Code Review", '#', class: "btn btn-default", role: "button"
+              

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
 
+  it { should have_many(:skills) }
   it { should have_secure_password }
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -21,7 +22,7 @@ describe User do
   end
 
   it "creates user with balance of 1" do
-    Fabricate(:user, balance: 1)
+    Fabricate(:user)
     expect(User.first.balance).to eq(1)
   end
   
@@ -29,5 +30,12 @@ describe User do
     alice = Fabricate.build(:user, email: "ALICE@EXAMPLE.COM")
     alice.save
     expect(User.first.email).to eq("alice@example.com")
+  end
+
+  describe "#full_name" do
+    it "returns full name combined from first and last name" do
+      alice = Fabricate(:user, first_name: "Alice", last_name: "Wang")
+      expect(alice.full_name).to eq("Alice Wang")
+    end
   end
 end

@@ -22,17 +22,16 @@ feature "user signs up" do
     visit sign_up_path
 
     fill_in "First name", with: "Alice"
-    fill_in "Last name", with: ""
-    fill_in "Email", with: "alice@example"
-    fill_in "Password", with: ""
+    fill_in "Last name",  with: ""
+    fill_in "Email",      with: "alice@example"
+    fill_in "Password",   with: ""
     
     click_on "Create Account"
     
     expect(page).not_to have_selector "nav"
     expect(page).not_to have_content "You have successfully signed up"
-    expect(page).to have_content "Last name can't be blank"
-    expect(page).to have_content "Invalid email"
-    expect(page).to have_content "Password can't be blank"
+    expect(page).to have_content "can't be blank"
+    expect(page).to have_content "is too short"
   end
 
 end

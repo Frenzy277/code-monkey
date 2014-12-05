@@ -26,8 +26,8 @@ describe User do
   end
   
   it "creates user with email downcased" do
-    alice = Fabricate.build(:user, email: "ALICE@EXAMPLE..COM")
+    alice = Fabricate.build(:user, email: "ALICE@EXAMPLE.COM")
     alice.save
-    expect(User.first.email).to eq("alice@example..com")
+    expect(User.first.email).to eq("alice@example.com")
   end
 end

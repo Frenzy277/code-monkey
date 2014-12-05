@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  layout "no_header"
+
   def new
     @user = User.new
   end

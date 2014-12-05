@@ -8,9 +8,9 @@ feature "user signs up" do
     expect(page).not_to have_selector "nav"
 
     fill_in "First name", with: "Alice"
-    fill_in "Last name", with: "from Wonderland"
-    fill_in "Email", with: "alice.from.wonderland@exmaple.com"
-    fill_in "Password", with: "password"
+    fill_in "Last name",  with: "from Wonderland"
+    fill_in "Email",      with: "alice.wonder@exmaple.com"
+    fill_in "Password",   with: "password"
 
     click_on "Create Account"
     
@@ -28,6 +28,7 @@ feature "user signs up" do
     
     click_on "Create Account"
     
+    expect(page).not_to have_selector "nav"
     expect(page).not_to have_content "You have successfully signed up"
     expect(page).to have_content "Last name can't be blank"
     expect(page).to have_content "Invalid email"

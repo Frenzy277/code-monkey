@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "user signs in" do
-  given!(:alice) { Fabricate(:user, first_name: "Alice") }
+  given!(:alice) { Fabricate(:user) }
   background { visit sign_in_path }
 
   scenario "with valid credentials" do
@@ -14,7 +14,9 @@ feature "user signs in" do
 
     expect(page).to have_content "You have logged in."
     expect(current_path).to eq(dashboard_path)
-    expect(page).to have_content "Welcome to DevPledge, Alice"
+    expect(page).to have_content "Welcome to DevPledge, #{alice.first_name}"
+    expect(page).not_to have_content "Sign in"
+    expect(page).to have_content "Sign out"
   end
 
   scenario "with invalid credentials" do

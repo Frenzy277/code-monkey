@@ -1,0 +1,26 @@
+%section.jumbotron.skills
+  .container
+    %h1 
+      %span.glyphicon.glyphicon-list
+      HTML Mentors
+    %a.btn.btn-danger.btn-lg(href="" role="button")
+      %span.glyphicon.glyphicon-certificate
+      Become a Mentor
+%article.container.skill_mentors
+  .row
+    - 3.times do
+      .col-sm-6.col-md-4
+        .thumbnail
+          = image_tag("html.jpg", alt: "html")
+          .caption
+            %h3.mentor-name John Doe
+            %p
+              Experience since:
+              %span.badge 2009
+            %p Code helped in: 20 projects
+            %p
+              %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+              %span.badge 9
+            %p.thumbnail-buttons
+              %a(href="#" class="btn btn-primary" role="button")Mentoring
+              %a(href="#" class="btn btn-default" role="button")Code Review

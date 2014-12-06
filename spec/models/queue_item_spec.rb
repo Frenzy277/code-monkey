@@ -12,4 +12,8 @@ describe QueueItem do
   it { should validate_presence_of(:user) }
   it { should validate_numericality_of(:position).only_integer }
   
+  it "sets default status for new queue item" do
+    Fabricate(:queue_item)
+    expect(QueueItem.first.status).to eq("pending")
+  end
 end

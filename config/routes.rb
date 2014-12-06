@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   resources :languages, only: [:show]
   resources :skills, only: [:new, :create]
+  resources :queue_items, only: [:create]
 end

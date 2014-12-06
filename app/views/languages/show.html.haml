@@ -22,6 +22,6 @@
               %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
               %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
-              = link_to "Mentoring", '#', class: "btn btn-primary", role: "button"
-              = link_to "Code Review", '#', class: "btn btn-default", role: "button"
+              = link_to "Mentoring", queue_items_path(mentoring: true), class: "btn btn-primary"
+              = link_to "Code Review", queue_items_path(code_review: true), class: "btn btn-default"
               

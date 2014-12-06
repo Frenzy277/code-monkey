@@ -6,8 +6,8 @@
         %span= image_tag("search_monkey.png", alt: "search_monkey", size: "70x50")
         %span.bracket pledge }
     %ul.nav.navbar-nav.pull-right
-      %li= link_to "Credit: -10 hours"
-      %li= link_to "Dashboard"
+      %li= link_to "Credit: #{pluralize(current_user.balance, "hour")}"
+      %li= link_to "Dashboard", dashboard_path
       %li= link_to "Account"
       %li
         = link_to sign_out_path do

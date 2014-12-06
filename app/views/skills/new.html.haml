@@ -3,19 +3,13 @@
     %h1(style="text-align: center;") Mentor next generation developers
     .col-sm-offset-3
       %article.well.col-sm-7
-        = form_for @skill, html: { class: "form-horizontal", role: "form" } do |f|
+        = bootstrap_form_for @skill, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8" do |f|
           .form-group
-            = f.label :language_id, "Skill", class: "control-label col-sm-3"
-            .col-sm-9
-              = f.collection_select :language_id, Language.all, :id, :name, { prompt: "Select a language or framework" }, { class: "form-control" }
+            = f.collection_select :language_id, Language.all, :id, :name, { prompt: "Select a language or framework" }
           .form-group
-            = f.label :description, "Description", class: "control-label col-sm-3"
-            .col-sm-9
-              = f.text_area :description, rows: 4, placeholder: "Write couple lines about your skill chosen.", class: "form-control"
+            = f.text_area :description, rows: 4, placeholder: "Write couple lines about the experience you have with the language or framework chosen."
           .form-group
-            = f.label :experience, "Experience", class: "control-label col-sm-3"
-            .col-sm-9
-              = f.date_select :experience, { start_year: 2000, end_year: Date.today.year, discard_day: true, discard_month: true, prompt: { year: "Select a year" }, with_css_classes: true }, { id: "skill_experience", class: "form-control" }
+            = f.date_select :experience, { label: "Experience since", start_year: 2000, end_year: Date.today.year, discard_day: true, discard_month: true, prompt: { year: "Select a year" }, with_css_classes: true }, { id: "skill_experience" }
           .form-group
             .col-sm-9.col-sm-offset-3
-              = f.submit "Sign the pledge", class: "form-control btn btn-danger"
+              = f.submit "Sign the pledge", class: "form-control btn btn-danger sign-the-pledge"

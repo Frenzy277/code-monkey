@@ -9,7 +9,7 @@ class SkillsController < ApplicationController
     @skill = current_user.skills.build(skill_params)
     
     if @skill.save
-      flash[:success] = "xxx"
+      flash[:success] = "Congratulations, you became a new mentor!"
       redirect_to dashboard_url
     else
       render :new

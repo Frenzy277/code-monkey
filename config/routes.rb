@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
   get 'ui(/:action)', controller: 'ui'
   resources :users, only: [:create]
-  resources :languages, only: [:show]
+  resources :languages, only: [:show] do
+    resouces :skills, only: [:new]
+  end
 end

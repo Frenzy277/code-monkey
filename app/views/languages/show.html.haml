@@ -16,7 +16,7 @@
             %h3.mentor-name= skill.mentor.full_name
             %p
               Experience since:
-              %span.badge skill.experience
+              %span.badge= skill.experience.year
             %p Code helped in: #{skill.helped_total} projects
             %p
               %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:

@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205214758) do
+ActiveRecord::Schema.define(version: 20141205225506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "feedbacks", force: true do |t|
+    t.integer "giver_id"
+    t.integer "skill_id"
+    t.text    "content"
+    t.boolean "recommended"
+  end
+
+  add_index "feedbacks", ["giver_id"], name: "index_feedbacks_on_giver_id", using: :btree
+  add_index "feedbacks", ["skill_id"], name: "index_feedbacks_on_skill_id", using: :btree
 
   create_table "languages", force: true do |t|
     t.string   "name"

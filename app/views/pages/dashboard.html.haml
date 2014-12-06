@@ -11,7 +11,7 @@
       %div.list-group
         - @languages.each do |language|
           = link_to language_path(language), class: "list-group-item" do
-            %span.badge 14
+            %span.badge= language.total_skills
             %h4.list-group-heading= language.name
             %p.list-group-text= Faker::Lorem.words(3).join(" ")
     .col-sm-6

@@ -29,7 +29,7 @@ def expect_to_see(content)
 end
 
 def fill_in_and_submit_form(language)
-  select(language.name, from: "Skill")
+  select(language.name, from: "Language")
   fill_in "Description", with: Faker::Lorem.paragraph(2)
   select("2010", from: "Experience")
   click_button "Sign the pledge"

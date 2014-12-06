@@ -84,7 +84,9 @@ describe SkillsController do
     end
 
     it "for unauthorized users" do
-      post :create, skill: { language_id: 1, user_id: 1, experience: "2014-01-01" }
+      alice = Fabricate(:user)
+      ruby = Fabricate(:language)
+      post :create, skill: { language: ruby, mentor: alice, experience: "2014-01-01" }
       expect(response).to redirect_to root_url
     end
   end

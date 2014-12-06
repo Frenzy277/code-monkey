@@ -8,6 +8,12 @@ describe PagesController do
       expect(response).to render_template "layouts/no_header"
       expect(response).to render_template :front
     end
+
+    it "redirects to dashboard if user is logged on" do
+      set_current_user
+      get :front
+      expect(response).to redirect_to dashboard_url
+    end
   end
   
   describe "GET dashboard" do

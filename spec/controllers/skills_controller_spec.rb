@@ -21,25 +21,25 @@ describe SkillsController do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
-        post :create, skill: Fabricate.attributes_for(:skill, language_id: ruby.id, user_id: alice.id)
+
+        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(response).to redirect_to dashboard_url
       end
-      
+
       it "creates the skill under mentor" do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
+
         post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(Skill.first.mentor).to eq(alice)
       end
-      
+
       it "creates the skill under language" do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
+
         post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(Skill.first.language).to eq(ruby)
       end
@@ -48,7 +48,7 @@ describe SkillsController do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
+
         post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(flash[:success]).to be_present
       end
@@ -59,17 +59,17 @@ describe SkillsController do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
+
         post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "", )
         expect(Skill.count).to eq(0)
       end
-      
+
       it "renders :new template" do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "", )
+
+        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "")
         expect(response).to render_template :new
       end
 
@@ -77,8 +77,8 @@ describe SkillsController do
         alice = Fabricate(:user)
         ruby = Fabricate(:language)
         set_current_user(alice)
-        
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "", )
+
+        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "")
         expect(assigns(:skill)).to be_instance_of(Skill)
       end
     end

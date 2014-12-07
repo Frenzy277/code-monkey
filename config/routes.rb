@@ -11,8 +11,13 @@ Rails.application.routes.draw do
   root 'pages#front'
 
   get 'ui(/:action)', controller: 'ui'
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
   resources :languages, only: [:show]
   resources :skills, only: [:new, :create]
-  resources :queue_items, only: [:create]
+  resources :queue_items, only: [:create, :destroy] do
+    collection do
+      patch 'update_queue', to: "queue_items#update_queue", as: :update
+    end
+  end
+
 end

@@ -28,37 +28,17 @@
             %th(width="17%") Mentor
             %th(width="5%") Action
         %tbody
-          %tr
-            %td 1
-            %td HTML
-            %td on 12/02/2014
-            %td pending
-            %td waiting on
-            %td= link_to "John S."
-            %td
-              %a.pull-right(href="")
-                %i.glyphicon.glyphicon-remove
-          %tr
-            %td 2
-            %td Ruby
-            %td on 12/02/2014
-            %td completed
-            %td submitted
-            %td= link_to "John S."
-            %td
-              %a.pull-right(href="")
-                %i.glyphicon.glyphicon-remove
-          %tr
-            %td 3
-            %td Javascript
-            %td on 12/03/2014
-            %td completed
-            %td 
-              %a(href="" data-toggle="modal" data-target="#FeedbackFormModal") feedback
-            %td= link_to "John S."
-            %td
-              %a.pull-right(href="")
-                %i.glyphicon.glyphicon-remove
+          - current_user.queue_items.each_with_index do |queue_item, index|
+            %tr
+              %td= (index + 1)
+              %td= queue_item.skill.language.name
+              %td on #{short_date(queue_item.created_at)}
+              %td= queue_item.status
+              %td= secondary_status(queue_item)
+              %td= link_to queue_item.mentor_short_name, user_path(queue_item.mentor)
+              %td
+                %a.pull-right(href="")
+                  %i.glyphicon.glyphicon-remove           
   %h2.mid-headers How to get started?
   %h4 We are excited to help you grow as developer. Here is how it works:
   %dl.queue.col-sm-8
@@ -81,7 +61,7 @@
       %p
         %em Choose one and get in touch with your mentor to boost your skills or 
 
-.modal.fade#FeedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
+.modal.fade#feedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
   .modal-dialog
     .modal-content
       .modal-header

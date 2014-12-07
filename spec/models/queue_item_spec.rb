@@ -21,4 +21,34 @@ describe QueueItem do
     expect(QueueItem.first.status).to eq("pending")
   end
 
+  describe "#mentor_short_name" do
+    it "returns short name of mentor for queue item" do
+      john = Fabricate(:user, first_name: "John", last_name: "Doe")
+      Fabricate(:queue_item, mentor: john)
+      expect(QueueItem.first.mentor_short_name).to eq("John D.")
+    end
+  end
+
+  describe "#feedback_submitted" do
+    it "returns true if feedback for queue_item from mentee exists" do
+      alice = Fabricate(:user)
+      skill = Fabricate(:skill)
+      Fabricate(:queue_item, mentee: alice, skill: skill)
+      Fabricate(:feedback, giver: alice, skill: skill)
+      expect(QueueItem.first.feedback_submitted).to be true
+    end
+
+    it "returns false if feedback for queue_item from mentee is missing" do
+      alice = Fabricate(:user)
+      bob = Fabricate(:user)
+      skill = Fabricate(:skill, mentor: bob)
+      Fabricate(:queue_item, skill: skill, mentor: bob, mentee: alice)
+      expect(QueueItem.first.feedback_submitted).to be false
+    end
+  end
+
 end
+
+
+
+

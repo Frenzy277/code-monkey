@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "mentor interacts with arranged queue" do
   given!(:bob) { Fabricate(:user) }
-  background do 
+  background do
     sign_in(bob)
     becomes_a_mentor
   end

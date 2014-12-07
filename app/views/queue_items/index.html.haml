@@ -4,65 +4,28 @@
 .container
   .row
     %fieldset
-      %table.table
-        %thead
-          %tr
-            %th(width="5%") Order
-            %th(width="20%") Language
-            %th(width="18%") Sign up date
-            %th(width="13%") Requester
-            %th(width="12%") Type
-            %th(width="12%") Github repo
-            %th(width="13%") Status
-            %th(width="12%") Decline
-        %tbody
-          %tr
-            %td
-              %input.form-control(type="text" value="1")
-            %td HTML
-            %td 12/02/2014 1:15 PM EST
-            %td= link_to "John Doe"
-            %td Code Review
-            %td= link_to "here"
-            %td
-              %select(name="")
-                %option(value="1") Pending
-                %option(value="2") Accepted
-                %option(value="3") Rejected
-            %td
-              = link_to "", method: :post do
-                %i.glyphicon.glyphicon-remove
-          %tr
-            %td
-              %input.form-control(type="text" value="2")
-            %td Rails
-            %td 12/02/2014 5:12 PM EST
-            %td= link_to "John Doe"
-            %td Mentoring
-            %td
-            %td
-              %select(name="")
-                %option(value="1") Pending
-                %option(value="2") Accepted
-                %option(value="3") Rejected
-                %option(value="4") Completed
-            %td
-              = link_to "", method: :post do
-                %i.glyphicon.glyphicon-remove
-          %tr
-            %td
-              %input.form-control(type="text" value="3")
-            %td Javascript
-            %td 01/03/2015 1:15 PM EST
-            %td= link_to "John Doe"
-            %td Mentoring
-            %td
-            %td
-              %select(name="")
-                %option(value="1") Pending
-                %option(value="2") Accepted
-                %option(value="3") Rejected
-            %td
-              = link_to "", method: :post do
-                %i.glyphicon.glyphicon-remove
-      = button_to "Update Queue", nil, class: "btn btn-default"
+      = form_tag update_queue_items_path, method: :patch do
+        %table.table
+          %thead
+            %tr
+              %th(width="5%") Order
+              %th(width="20%") Language
+              %th(width="18%") Sign up date
+              %th(width="13%") Requester
+              %th(width="12%") Type
+              %th(width="13%") Status
+              %th(width="12%") Decline
+          %tbody
+            - @queue_items.each do |queue_item|
+              %tr
+                = hidden_field_tag "queue_items[][id]", queue_item.id
+                %td= text_field_tag "queue_items[][position]", queue_item.position, class: "form-control"
+                %td= queue_item.skill.language.name
+                %td= queue_item.created_at
+                %td= link_to queue_item.mentee.full_name, user_path(queue_item.mentee)
+                %td= queue_item.support
+                %td= select_tag "queue_items[][status]", options_for_select(status_options, queue_item.status), class: "form-control"
+                %td
+                  = link_to queue_item, method: :delete do
+                    %i.glyphicon.glyphicon-remove
+        = submit_tag "Update Queue", class: "btn btn-default"

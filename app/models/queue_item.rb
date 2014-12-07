@@ -9,4 +9,11 @@ class QueueItem < ActiveRecord::Base
 
   delegate :mentor, to: :skill
 
+  def mentor_short_name
+    "#{mentor.first_name} #{mentor.last_name[0].upcase}."
+  end
+
+  def feedback_submitted
+    skill.feedbacks.where(giver: self.mentee).any? ? true : false
+  end
 end

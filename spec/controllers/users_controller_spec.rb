@@ -50,4 +50,19 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do
+    it "sets the @user" do
+      alice = Fabricate(:user)
+      set_current_user
+      get :show, id: alice.id
+      expect(assigns(:user)).to eq(alice)
+    end
+
+    it "redirects to root_url for unauthorized" do
+      alice = Fabricate(:user)
+      get :show, id: alice.id
+      expect(response).to redirect_to root_url
+    end
+  end
 end

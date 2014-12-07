@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  before_action :require_user, only: [:show]
   layout "no_header"
 
   def new
@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     else
       render :new
     end    
+  end
+
+  def show
+    @user = User.find(params[:id])
+    # if logged_in?
+
   end
 
 private

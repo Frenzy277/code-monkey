@@ -16,6 +16,7 @@ def expect_to_see_all_navigation_links
   within("//nav[@role='navigation']") do 
     find_link("Credit: 1 hour").visible?
     find_link("Dashboard").visible?
+    find_link("Arranged Queue").visible?
     find_link("Account").visible?
     find_link("Sign out").visible?
   end

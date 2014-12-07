@@ -10,7 +10,7 @@
   .row
     - @language.skills.each do |skill|
       .col-sm-6.col-md-4
-        .thumbnail
+        .thumbnail{id: "mentor_#{skill.mentor.id}"}
           = image_tag(@language.image_url, alt: @language.name)
           .caption
             %h3.mentor-name= skill.mentor.full_name
@@ -22,6 +22,6 @@
               %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
               %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
-              = link_to "Mentoring", queue_items_path(skill_id: skill.id, support: "mentoring"), class: "btn btn-primary"
-              = link_to "Code Review", queue_items_path(skill_id: skill.id, support: "code review"), class: "btn btn-default"
+              = link_to "Mentoring", queue_items_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary"
+              = link_to "Code Review", queue_items_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default"
               

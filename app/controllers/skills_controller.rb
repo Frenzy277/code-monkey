@@ -6,7 +6,7 @@ class SkillsController < ApplicationController
   end
 
   def create
-    @skill = current_user.skills.build(skill_params)
+    @skill = Skill.new(skill_params.merge(mentor: current_user))
     
     if @skill.save
       flash[:success] = "Congratulations, you became a new mentor!"

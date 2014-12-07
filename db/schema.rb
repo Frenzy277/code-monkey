@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206104913) do
+ActiveRecord::Schema.define(version: 20141207162927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,23 @@ ActiveRecord::Schema.define(version: 20141206104913) do
     t.string   "image_url"
   end
 
+  create_table "queue_items", force: true do |t|
+    t.integer  "skill_id"
+    t.integer  "mentee_id"
+    t.string   "status",     default: "pending"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "support"
+    t.integer  "mentor_id"
+  end
+
+  add_index "queue_items", ["mentee_id"], name: "index_queue_items_on_mentee_id", using: :btree
+  add_index "queue_items", ["mentor_id"], name: "index_queue_items_on_mentor_id", using: :btree
+  add_index "queue_items", ["skill_id"], name: "index_queue_items_on_skill_id", using: :btree
+
   create_table "skills", force: true do |t|
-    t.integer "user_id"
+    t.integer "mentor_id"
     t.integer "language_id"
     t.integer "helped_total", default: 0
     t.date    "experience"
@@ -42,7 +57,7 @@ ActiveRecord::Schema.define(version: 20141206104913) do
   end
 
   add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
-  add_index "skills", ["user_id"], name: "index_skills_on_user_id", using: :btree
+  add_index "skills", ["mentor_id"], name: "index_skills_on_mentor_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Skill do
   
   it { should have_many(:feedbacks).order(created_at: :desc) }
+  it { should have_many(:queue_items).order(:position) }
   it do
     should belong_to(:mentor).class_name('User')
                              .with_foreign_key(:user_id)

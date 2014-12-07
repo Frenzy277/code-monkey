@@ -9,4 +9,8 @@ class Skill < ActiveRecord::Base
   def total_feedbacks
     feedbacks.count == 0 ? "none" : feedbacks.count
   end
+
+  def mentors_queue_total
+    mentor.mentor_queue_items.count
+  end
 end

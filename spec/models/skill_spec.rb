@@ -33,5 +33,15 @@ describe Skill do
       expect(html.total_feedbacks).to eq(2)
     end
   end
+
+  describe "#mentors_queue_total" do
+    it "returns count of all mentors queue items" do
+      bob = Fabricate(:user)
+      skill = Fabricate(:skill, mentor: bob)
+      Fabricate.times(3, :queue_item, skill: skill, mentor: bob)
+      
+      expect(Skill.first.mentors_queue_total).to eq(3)
+    end
+  end
   
 end

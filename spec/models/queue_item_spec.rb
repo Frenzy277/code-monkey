@@ -4,8 +4,10 @@ describe QueueItem do
   
   it { should have_db_index(:skill_id) }
   it { should have_db_index(:mentee_id) }
+  it { should have_db_index(:mentor_id) }
   it { should belong_to(:skill) }
   it { should belong_to(:mentee).class_name("User") }
+  it { should belong_to(:mentor).class_name("User") }
   it { should validate_presence_of(:status) }
   it { should validate_presence_of(:skill) }
   it { should validate_presence_of(:mentee) }

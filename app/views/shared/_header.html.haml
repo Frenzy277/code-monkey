@@ -9,7 +9,7 @@
       %li= link_to "Credit: #{pluralize(current_user.balance, "hour")}"
       %li= link_to "Dashboard", dashboard_path
       - if logged_in? && mentor?
-        %li= link_to "Arranged Queue"
+        %li= link_to "Arranged Queue", mentor_queue_path
       %li= link_to "Account"
       %li
         = link_to sign_out_path do

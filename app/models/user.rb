@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :skills
   has_many :feedbacks, foreign_key: "giver_id"
   has_many :queue_items, -> { order(:position) }, foreign_key: "mentee_id"
-
+  has_many :mentor_queue_items, class_name: "QueueItem", foreign_key: "mentor_id"
   before_save { |user| user.email = user.email.downcase }
 
   validates :first_name, :last_name, :email, :password, :balance, presence: true

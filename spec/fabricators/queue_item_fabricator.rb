@@ -1,5 +1,6 @@
 Fabricator(:queue_item) do
   position { [1, 2, 3].sample }
-  user
+  support { %w(mentoring code\ review).sample }
+  mentee(fabricator: :user)
   skill
 end

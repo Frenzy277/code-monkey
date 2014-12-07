@@ -13,6 +13,11 @@ describe QueueItemsController do
         post :create, skill_id: mentor_skill.id, support: "mentoring"
         expect(response).to redirect_to dashboard_url
       end
+
+      it "creates the queue_item" do
+        post :create, skill_id: mentor_skill.id, support: "mentoring"
+        expect(QueueItem.count).to eq(1)
+      end
     
       it "creates the queue_item under mentor" do
         post :create, skill_id: mentor_skill.id, support: "mentoring"
@@ -22,11 +27,6 @@ describe QueueItemsController do
       it "creates the queue_item under mentee" do
         post :create, skill_id: mentor_skill.id, support: "mentoring"
         expect(QueueItem.first.mentee).to eq(alice)
-      end
-
-      it "creates the queue_item for right support" do
-        post :create, skill_id: mentor_skill.id, support: "mentoring"
-        expect(QueueItem.count).to eq(1)
       end
 
       it "sets flash success" do

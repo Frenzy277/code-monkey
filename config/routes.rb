@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   get 'sign_out', to: 'sessions#destroy'
   get 'sign_up', to: 'users#new'
 
-  get 'dashboard', to: 'pages#dashboard'
+  get 'dashboard', to: 'languages#index'
   get 'mentoring_sessions', to: 'mentoring_sessions#index'
   
-  root 'pages#front'
+  root 'languages#front'
 
   get 'ui(/:action)', controller: 'ui'
   resources :users, only: [:create, :show]

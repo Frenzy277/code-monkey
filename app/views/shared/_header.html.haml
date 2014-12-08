@@ -6,12 +6,16 @@
         %span= image_tag("search_monkey.png", alt: "search_monkey", size: "70x50")
         %span.bracket pledge }
     %ul.nav.navbar-nav.pull-right
-      %li= link_to "Credit: #{pluralize(current_user.balance, "hour")}"
-      %li= link_to "Dashboard", dashboard_path
-      - if logged_in? && mentor?
-        %li= link_to "Mentoring Sessions", mentoring_sessions_path
-      %li= link_to "Account"
-      %li
-        = link_to sign_out_path do
-          %i.glyphicon.glyphicon-log-out
-          Sign out
+      - if logged_in?
+        %li= link_to "Credit: #{pluralize(current_user.balance, "hour")}"
+        %li= link_to "Dashboard", dashboard_path
+        - if mentor?
+          %li= link_to "Mentoring Sessions", mentoring_sessions_path
+        %li= link_to "Account"
+        %li
+          = link_to sign_out_path do
+            %i.glyphicon.glyphicon-log-out
+            Sign out
+      - else
+        %li= link_to "Sign up", sign_up_path
+        %li= link_to "Sign in", sign_in_path

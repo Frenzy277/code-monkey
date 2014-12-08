@@ -1,0 +1,80 @@
+%section.jumbotron.dashboard
+  .container
+    %span.welcome
+      %h1 Welcome to DevPledge, #{current_user.first_name}
+      %h3 A community of developers helping each other
+      %p Mentor the next generation of developers or learn from the best
+.container
+  .row
+    .col-sm-6
+      %h2.mid-headers Select language of your choice
+      %div.list-group
+        - @languages.each do |language|
+          = link_to language_path(language), class: "list-group-item" do
+            %span.badge= language.total_skills
+            %h4.list-group-heading= language.name
+            %p.list-group-text= Faker::Lorem.words(3).join(" ")
+    .col-sm-6
+      %table.table
+        %thead
+          %tr
+            %th(colspan="7" style="text-align: center;") Signed For
+          %tr
+            %th(width="3%") #
+            %th(width="20%") Language
+            %th(width="25%") When?
+            %th(width="15%") Status
+            %th(width="15%") Feedback
+            %th(width="17%") Mentor
+            %th(width="5%") Action
+        %tbody
+          - current_user.mentee_sessions.each_with_index do |mentee_sessions, index|
+            %tr
+              %td= (index + 1)
+              %td= mentee_sessions.skill.language.name
+              %td on #{short_date(mentee_sessions.created_at)}
+              %td= mentee_sessions.status
+              %td= secondary_status(mentee_sessions)
+              %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)
+              %td
+                %a.pull-right(href="")
+                  %i.glyphicon.glyphicon-remove           
+  %h2.mid-headers How to get started?
+  %h4 We are excited to help you grow as developer. Here is how it works:
+  %dl.queue.col-sm-8
+    %dt.col-sm-2
+      %span.cirle 1
+    %dd.col-sm-10
+      %h4 Select a language or framework
+      %p 
+        %em Improve your skills or provide help to others. Just select a field of expertise.
+    %dt.col-sm-2
+      %span.cirle 2
+    %dd.col-sm-10
+      %h4 Pick or become a Mentor
+      %p
+        %em Select any professional for mentoring or code reviewing or simply become a mentor.
+    %dt.col-sm-2
+      %span.cirle 3
+    %dd.col-sm-10
+      %h4 Give or receive 1 hour coding help
+      %p
+        %em Choose one and get in touch with your mentor to boost your skills or 
+
+.modal.fade#feedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#Feedback
+          %span.glyphicon.glyphicon-bullhorn
+          Feedback on John Doe
+      %form.form-horizontal(role="form")
+        .modal-body
+          .col-sm-12.form-group
+            %label.control-label Feedback form:
+            %textarea.form-control(rows="5" placeholder="Your feedback goes here.")
+        .modal-footer
+          %button(type="button" class="btn btn-default" data-dismiss="modal") Close
+          %button(type="submit" class="btn btn-primary") Submit Feedback

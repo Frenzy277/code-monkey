@@ -1,0 +1,23 @@
+%nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
+  .container
+    %ul.nav.navbar-nav.pull-right
+      %li= link_to "Sign up", sign_up_path
+      %li= link_to "Sign in", sign_in_path
+%section.jumbotron.front
+  .container
+    .flash-messages-front
+      = render 'shared/flash_messages'
+    %aside.teaser
+      .row
+        %span.bracket { dev: 
+        %span= image_tag("search_monkey.png", alt: "search_monkey", size: "70x50")
+        %span.bracket pledge }
+      %h3 What do you need help with?
+      .languages
+        - @languages.each do |language|
+          = link_to language.name, language, class: "btn"
+%section.container
+  %div.marketing
+    %h1 Code smarter
+    %h3 Give or receive an hour of coding help from experienced developers.
+    %h3 Become a member of community and mentor next generation of software developers.

@@ -22,7 +22,7 @@ module ApplicationHelper
     elsif ms.status == "completed" && ms.feedback_submitted?
       "submitted"
     else
-      link_to "feedback", '', data: { toggle: "modal", target: "#feedbackFormModal"}      
+      link_to "feedback", new_mentoring_session_feedback_path(ms), data: { toggle: "modal", target: "#feedbackFormModal"}, remote: true
     end
 
   end

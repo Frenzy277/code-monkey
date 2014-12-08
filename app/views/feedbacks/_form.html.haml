@@ -1,0 +1,20 @@
+.modal.fade#feedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      = form_for [ms, Feedback.new], html: { class: "form-horizontal", role: "form" } do |f|
+        .modal-header
+          %button.close(type="button" data-dismiss="modal")
+            %span(aria-hidden="true") &times;
+          %h4.modal-title#Feedback
+            %span.glyphicon.glyphicon-bullhorn
+            Feedback on Mentoring Session with #{ms.mentor.full_name}
+        .modal-body.clearfix
+          .col-sm-12.form-group
+            = f.label :recommended, "Recommend?"
+            = f.check_box :recommended, {checked: true}
+          .col-sm-12.form-group
+            = f.label :content, "Feedback form:"
+            = f.text_area :content, rows: 5, placeholder: "Your feedback goes here.", class: "form-control"
+        .modal-footer
+          %button(type="button" class="btn btn-default" data-dismiss="modal") Close
+          = f.submit "Submit Feedback", class: "btn btn-primary"

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Skill do
   
-  it { should have_many(:feedbacks).order(created_at: :desc) }
+  it { should have_many(:feedbacks).order(created_at: :desc).through(:mentoring_sessions) }
   it { should have_many(:mentoring_sessions).order(:position) }
   it { should belong_to(:mentor).class_name('User') }
   it { should belong_to(:language) }
@@ -25,8 +25,8 @@ describe Skill do
 
     it "returns number for number of feedbacks" do
       html = Fabricate(:skill)
-      Fabricate(:feedback, skill: html)
-      Fabricate(:feedback, skill: html)
+      ms = Fabricate(:mentoring_session, skill: html)
+      Fabricate.times(2, :feedback, mentoring_session: ms)
       expect(html.total_feedbacks).to eq(2)
     end
   end
@@ -35,9 +35,8 @@ describe Skill do
     it "returns count of all mentor sessions" do
       bob = Fabricate(:user)
       skill = Fabricate(:skill, mentor: bob)
-      Fabricate.times(3, :mentoring_session, skill: skill, mentor: bob)
-      
-      expect(Skill.first.mentor_sessions_total).to eq(3)
+      Fabricate.times(2, :mentoring_session, skill: skill, mentor: bob)      
+      expect(Skill.first.mentor_sessions_total).to eq(2)
     end
   end
   

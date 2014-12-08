@@ -8,6 +8,7 @@ describe MentoringSession do
   it { should belong_to(:skill) }
   it { should belong_to(:mentee).class_name("User") }
   it { should belong_to(:mentor).class_name("User") }
+  it { should have_many(:feedbacks) }
   it { should validate_presence_of(:status) }
   it { should validate_presence_of(:skill) }
   it { should validate_presence_of(:mentee) }
@@ -31,17 +32,13 @@ describe MentoringSession do
   describe "#feedback_submitted?" do
     it "returns true if feedback for mentoring_session from mentee exists" do
       alice = Fabricate(:user)
-      skill = Fabricate(:skill)
-      Fabricate(:mentoring_session, mentee: alice, skill: skill)
-      Fabricate(:feedback, giver: alice, skill: skill)
+      ms = Fabricate(:mentoring_session, mentee: alice)
+      Fabricate(:feedback, giver: alice, mentoring_session: ms)
       expect(MentoringSession.first.feedback_submitted?).to be true
     end
 
     it "returns false if feedback for mentoring_session from mentee is missing" do
-      alice = Fabricate(:user)
-      bob = Fabricate(:user)
-      skill = Fabricate(:skill, mentor: bob)
-      Fabricate(:mentoring_session, skill: skill, mentor: bob, mentee: alice)
+      Fabricate(:mentoring_session)
       expect(MentoringSession.first.feedback_submitted?).to be false
     end
   end

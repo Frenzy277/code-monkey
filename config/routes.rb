@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   resources :skills, only: [:new, :create]
   resources :mentoring_sessions, only: [:create, :destroy] do
     collection do
-      patch 'update_queue', to: "mentoring_sessions#update_sessions", as: :update
+      patch 'update', to: "mentoring_sessions#update_sessions", as: :update
     end
+
+    resources :feedbacks, only: [:new, :create]
   end
 
 end

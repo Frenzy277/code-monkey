@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
   has_many :skills, foreign_key: "mentor_id"
   has_many :feedbacks, foreign_key: "giver_id"
-  has_many :queue_items, -> { order(:position) }, foreign_key: "mentee_id"
-  has_many :mentor_queue_items, class_name: "QueueItem", foreign_key: "mentor_id"
+  has_many :mentee_sessions, -> { order(:position) }, class_name: "MentoringSession", foreign_key: "mentee_id"
+  has_many :mentor_sessions, class_name: "MentoringSession", foreign_key: "mentor_id"
   before_save { |user| user.email = user.email.downcase }
 
   validates :first_name, :last_name, :email, :password, :balance, presence: true

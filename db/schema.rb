@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208004859) do
+ActiveRecord::Schema.define(version: 20141208073746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20141208004859) do
     t.string   "image_url"
   end
 
-  create_table "queue_items", force: true do |t|
+  create_table "mentoring_sessions", force: true do |t|
     t.integer  "skill_id"
     t.integer  "mentee_id"
     t.string   "status",     default: "pending"
@@ -46,9 +46,9 @@ ActiveRecord::Schema.define(version: 20141208004859) do
     t.integer  "mentor_id"
   end
 
-  add_index "queue_items", ["mentee_id"], name: "index_queue_items_on_mentee_id", using: :btree
-  add_index "queue_items", ["mentor_id"], name: "index_queue_items_on_mentor_id", using: :btree
-  add_index "queue_items", ["skill_id"], name: "index_queue_items_on_skill_id", using: :btree
+  add_index "mentoring_sessions", ["mentee_id"], name: "index_mentoring_sessions_on_mentee_id", using: :btree
+  add_index "mentoring_sessions", ["mentor_id"], name: "index_mentoring_sessions_on_mentor_id", using: :btree
+  add_index "mentoring_sessions", ["skill_id"], name: "index_mentoring_sessions_on_skill_id", using: :btree
 
   create_table "skills", force: true do |t|
     t.integer "mentor_id"

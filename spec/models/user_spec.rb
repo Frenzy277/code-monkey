@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe User do
 
-  it { should have_many(:skills).with_foreign_key(:mentor_id) }
-  it { should have_many(:feedbacks).with_foreign_key(:giver_id) }
-  it { should have_many(:queue_items).order(:position).with_foreign_key(:mentee_id) }
-  it { should have_many(:mentor_queue_items).class_name("QueueItem").with_foreign_key(:mentor_id) }
   it { should have_secure_password }
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -15,6 +11,14 @@ describe User do
   it { should validate_presence_of(:password) }
   it { should ensure_length_of(:password).is_at_least(6) }
   it { should validate_presence_of(:balance) }
+  it { should have_many(:skills).with_foreign_key(:mentor_id) }
+  it { should have_many(:feedbacks).with_foreign_key(:giver_id) }
+  it do 
+    should have_many(:mentee_sessions).order(:position).class_name("MentoringSession").with_foreign_key(:mentee_id) 
+  end
+  it do 
+    should have_many(:mentor_sessions).class_name("MentoringSession").with_foreign_key(:mentor_id)
+  end
 
   it "allows email format" do
     should allow_value('user@example.com', 'TEST.A@abc.in', 'user.ab.dot@test.ds.info', 'foo-bar2@baz2.com').for(:email)

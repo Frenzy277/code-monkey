@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'sign_up', to: 'users#new'
 
   get 'dashboard', to: 'pages#dashboard'
-  get 'mentor_queue', to: 'queue_items#index'
+  get 'mentoring_sessions', to: 'mentoring_sessions#index'
   
   root 'pages#front'
 
@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :show]
   resources :languages, only: [:show]
   resources :skills, only: [:new, :create]
-  resources :queue_items, only: [:create, :destroy] do
+  resources :mentoring_sessions, only: [:create, :destroy] do
     collection do
-      patch 'update_queue', to: "queue_items#update_queue", as: :update
+      patch 'update_queue', to: "mentoring_sessions#update_sessions", as: :update
     end
   end
 

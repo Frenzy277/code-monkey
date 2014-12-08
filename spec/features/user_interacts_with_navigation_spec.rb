@@ -25,9 +25,9 @@ def expect_to_see_all_navigation_links_for(user)
     find_link("Sign out").visible?
 
     if user == "non-mentor"
-      expect(page).to have_no_content "Arranged Queue"
+      expect(page).to have_no_content "Mentoring Sessions"
     else
-      find_link("Arranged Queue").visible?
+      find_link("Mentoring Sessions").visible?
     end
   end
 end

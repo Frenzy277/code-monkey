@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Skill do
   
   it { should have_many(:feedbacks).order(created_at: :desc) }
-  it { should have_many(:queue_items).order(:position) }
+  it { should have_many(:mentoring_sessions).order(:position) }
   it { should belong_to(:mentor).class_name('User') }
   it { should belong_to(:language) }
   it { should validate_presence_of(:mentor) }
@@ -31,13 +31,13 @@ describe Skill do
     end
   end
 
-  describe "#mentors_queue_total" do
-    it "returns count of all mentors queue items" do
+  describe "#mentor_sessions_total" do
+    it "returns count of all mentor sessions" do
       bob = Fabricate(:user)
       skill = Fabricate(:skill, mentor: bob)
-      Fabricate.times(3, :queue_item, skill: skill, mentor: bob)
+      Fabricate.times(3, :mentoring_session, skill: skill, mentor: bob)
       
-      expect(Skill.first.mentors_queue_total).to eq(3)
+      expect(Skill.first.mentor_sessions_total).to eq(3)
     end
   end
   

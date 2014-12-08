@@ -1,0 +1,31 @@
+%section.jumbotron.arrange_queue
+  .container
+    %h1 Mentoring Sessions
+.container
+  .row
+    %fieldset
+      = form_tag update_mentoring_sessions_path, method: :patch do
+        %table.table
+          %thead
+            %tr
+              %th(width="5%") Order
+              %th(width="20%") Language
+              %th(width="18%") Sign up date
+              %th(width="13%") Requester
+              %th(width="12%") Type
+              %th(width="13%") Status
+              %th(width="12%") Decline
+          %tbody
+            - @mentoring_sessions.each do |mentoring_session|
+              %tr
+                = hidden_field_tag "mentoring_sessions[][id]", mentoring_session.id
+                %td= text_field_tag "mentoring_sessions[][position]", mentoring_session.position, class: "form-control"
+                %td= mentoring_session.skill.language.name
+                %td= mentoring_session.created_at
+                %td= link_to mentoring_session.mentee.full_name, user_path(mentoring_session.mentee)
+                %td= mentoring_session.support
+                %td= select_tag "mentoring_sessions[][status]", options_for_select(status_options, mentoring_session.status), class: "form-control"
+                %td
+                  = link_to mentoring_session, method: :delete do
+                    %i.glyphicon.glyphicon-remove
+        = submit_tag "Update Sessions", class: "btn btn-default"

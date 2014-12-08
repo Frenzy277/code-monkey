@@ -28,14 +28,14 @@
             %th(width="17%") Mentor
             %th(width="5%") Action
         %tbody
-          - current_user.queue_items.each_with_index do |queue_item, index|
+          - current_user.mentee_sessions.each_with_index do |mentee_sessions, index|
             %tr
               %td= (index + 1)
-              %td= queue_item.skill.language.name
-              %td on #{short_date(queue_item.created_at)}
-              %td= queue_item.status
-              %td= secondary_status(queue_item)
-              %td= link_to queue_item.mentor_short_name, user_path(queue_item.mentor)
+              %td= mentee_sessions.skill.language.name
+              %td on #{short_date(mentee_sessions.created_at)}
+              %td= mentee_sessions.status
+              %td= secondary_status(mentee_sessions)
+              %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)
               %td
                 %a.pull-right(href="")
                   %i.glyphicon.glyphicon-remove           

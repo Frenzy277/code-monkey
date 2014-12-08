@@ -61,20 +61,4 @@
       %p
         %em Choose one and get in touch with your mentor to boost your skills or 
 
-.modal.fade#feedbackFormModal(tabindex="-1" role="dialog" aria-labelledby="Feedback" aria-hidden="true")
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close(type="button" data-dismiss="modal")
-          %span(aria-hidden="true") &times;
-        %h4.modal-title#Feedback
-          %span.glyphicon.glyphicon-bullhorn
-          Feedback on John Doe
-      %form.form-horizontal(role="form")
-        .modal-body
-          .col-sm-12.form-group
-            %label.control-label Feedback form:
-            %textarea.form-control(rows="5" placeholder="Your feedback goes here.")
-        .modal-footer
-          %button(type="button" class="btn btn-default" data-dismiss="modal") Close
-          %button(type="submit" class="btn btn-primary") Submit Feedback
+%div.feedback

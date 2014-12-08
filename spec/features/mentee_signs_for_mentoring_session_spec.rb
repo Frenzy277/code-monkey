@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "mentee adds items to queue" do
+feature "mentee signs for mentoring session" do
   given!(:alice) { Fabricate(:user) }
   given!(:bob)   { Fabricate(:user) }
   given!(:html)  { Fabricate(:language) }

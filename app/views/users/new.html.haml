@@ -2,7 +2,7 @@
   .container.col-sm-offset-4
     %h1 Sign Up
     %article.well.col-sm-5
-      = bootstrap_form_for @user, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8", role: "form" do |f|
+      = bootstrap_form_for @user, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-8" do |f|
         .form-group
           = f.text_field :first_name, label: "First name"
         .form-group

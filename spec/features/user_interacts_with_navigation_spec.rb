@@ -8,7 +8,7 @@ feature "user interacts with navigation bar" do
 
     visit new_skill_path
     click_on "Dashboard"
-    expect_right_url(dashboard_url)
+    expect_url(dashboard_url)
   end
 
   scenario "mentor checks navigation links" do
@@ -30,10 +30,6 @@ def expect_to_see_all_navigation_links_for(user)
       find_link("Mentoring Sessions").visible?
     end
   end
-end
-
-def expect_right_url(url)
-  expect(current_url).to eq(url)
 end
 
 def becomes_a_mentor

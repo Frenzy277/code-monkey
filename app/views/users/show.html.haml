@@ -5,104 +5,108 @@
         .thumbnail.circ
           = image_tag("code monkey.png", alt: "John Smith")
       .col-sm-10
-        %h1.user-name John Smith
-        %h4.contact john.smith@example.com
+        %h1.user-name= @user.full_name
+        %h4.contact= @user.email
     %h2 About
-    %p= Faker::Lorem.words(100).join(" ")
-  
+    %p
+    - if @user.about_me.blank?
+      "User has not provided any information."
+    - else
+      = @user.about_me  
     %article.skill_mentors
       %h2 Mentoring in these areas
       .row
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("html.jpg", alt: "html")
-            .caption
-              %p
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("css.jpg", alt: "css")
-            .caption
-              %p 
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("angular.js.jpg", alt: "angular")
-            .caption
-              %p 
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("rails.jpg", alt: "rails")
-            .caption
-              %p 
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("ruby.jpg", alt: "ruby")
-            .caption
-              %p 
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
-        .col-sm-6.col-md-4
-          .thumbnail
-            = image_tag("jquery.jpg", alt: "jquery")
-            .caption
-              %p 
-                Experience since:
-                %span.badge 2009
-              %p Code helped in: 20 projects
-              %p
-                %a(href="" data-toggle="modal" data-target="#RecommendationModal")Recommendations:
-                %span.badge 9
-              %p.thumbnail-buttons
-                Ask for:
-                %a(href="#" class="btn btn-primary" role="button")Mentoring
-                %a(href="#" class="btn btn-default" role="button")Code Review
+        - @user.skills.each do |skill|
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("html.jpg", alt: "html")
+              .caption
+                %p
+                  Experience since:
+                  %span.badge= skill.experience.year
+                %p Code helped in: #{skill.helped_total} projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  %span.badge= skill.feedbacks.count
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("css.jpg", alt: "css")
+              .caption
+                %p 
+                  Experience since:
+                  %span.badge 2009
+                %p Code helped in: 20 projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  %span.badge 9
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("angular.js.jpg", alt: "angular")
+              .caption
+                %p 
+                  Experience since:
+                  %span.badge 2009
+                %p Code helped in: 20 projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  %span.badge 9
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("rails.jpg", alt: "rails")
+              .caption
+                %p 
+                  Experience since:
+                  %span.badge 2009
+                %p Code helped in: 20 projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  %span.badge 9
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("ruby.jpg", alt: "ruby")
+              .caption
+                %p 
+                  Experience since:
+                  %span.badge 2009
+                %p Code helped in: 20 projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  %span.badge 9
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
+          .col-sm-6.col-md-4
+            .thumbnail
+              = image_tag("jquery.jpg", alt: "jquery")
+              .caption
+                %p 
+                  Experience since:
+                  %span.badge 2009
+                %p Code helped in: 20 projects
+                %p
+                  %a(href="" data-toggle="modal" data-target="#RecommendationModal")Recommendations:
+                  %span.badge 9
+                %p.thumbnail-buttons
+                  Ask for:
+                  %a(href="#" class="btn btn-primary" role="button")Mentoring
+                  %a(href="#" class="btn btn-default" role="button")Code Review
 
 
 / Modal

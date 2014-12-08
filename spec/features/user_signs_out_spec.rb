@@ -7,7 +7,7 @@ feature "user signs out" do
     click_on "Sign out"
     
     expect(page).to have_content "You have logged out."
-    expect(current_path).to eq(root_path)
+    expect_url(root_url)
     expect(page).to_not have_content "Sign out"
   end
 

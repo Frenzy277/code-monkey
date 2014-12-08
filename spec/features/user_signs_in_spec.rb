@@ -13,7 +13,7 @@ feature "user signs in" do
     click_on "Sign in"
 
     expect(page).to have_content "You have logged in."
-    expect(current_path).to eq(dashboard_path)
+    expect_url(dashboard_url)
     expect(page).to have_content "Welcome to DevPledge, #{alice.first_name}"
     expect(page).not_to have_content "Sign in"
     expect(page).to have_content "Sign out"

@@ -5,7 +5,7 @@ feature "front page content" do
   given!(:css)   { Fabricate(:language, name: "CSS") }
   given!(:rails) { Fabricate(:language, name: "Rails") }
   background { visit root_path }
-  
+
   scenario "has logo" do
     expect(page).to have_content "{ dev: pledge }"
   end
@@ -21,7 +21,7 @@ feature "front page content" do
   end
 
   scenario "visitor interacts with language links" do
-       
+
     within(:css, '.languages') do
       click_on "HTML"
       expect(current_path).to eq(language_path(html))

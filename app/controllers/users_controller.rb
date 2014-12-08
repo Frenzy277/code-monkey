@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :require_user, only: [:show]
-  layout "no_header"
-
+  
   def new
     @user = User.new
+    render :new, layout: "no_header"
   end
 
   def create
@@ -13,14 +13,12 @@ class UsersController < ApplicationController
       flash[:success] = "You have successfully signed up, please log in."
       redirect_to sign_in_url
     else
-      render :new
+      render :new, layout: "no_header"
     end    
   end
 
   def show
     @user = User.find(params[:id])
-    # if logged_in?
-
   end
 
 private

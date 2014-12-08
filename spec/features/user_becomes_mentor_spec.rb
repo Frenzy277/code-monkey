@@ -16,7 +16,7 @@ feature "user wants to be a mentor" do
     fill_in_and_submit_form(rails)
 
     verify_flash_message
-    verify_dashboard_path
+    expect_url(dashboard_url)
   end
 end
 
@@ -37,8 +37,4 @@ end
 
 def verify_flash_message
   expect(page).to have_content "Congratulations, you became a new mentor"
-end
-
-def verify_dashboard_path
-  expect(current_path).to eq(dashboard_path)
 end

@@ -14,7 +14,6 @@ describe MentoringSession do
   it { should validate_presence_of(:support) }
   it { should validate_numericality_of(:position).only_integer }
   it { should validate_inclusion_of(:support).in_array(%w(mentoring code\ review)) }
-  it { should delegate_method(:mentor).to(:skill) }
   
   it "sets default status for new mentoring session" do
     Fabricate(:mentoring_session)
@@ -29,7 +28,7 @@ describe MentoringSession do
     end
   end
 
-  describe "#feedback_submitted" do
+  describe "#feedback_submitted?" do
     it "returns true if feedback for mentoring_session from mentee exists" do
       alice = Fabricate(:user)
       skill = Fabricate(:skill)
@@ -45,6 +44,19 @@ describe MentoringSession do
       Fabricate(:mentoring_session, skill: skill, mentor: bob, mentee: alice)
       expect(MentoringSession.first.feedback_submitted?).to be false
     end
+  end
+
+  describe "#completed?" do
+    it "returns true if status is completed" do
+      Fabricate(:mentoring_session, status: "completed")
+      expect(MentoringSession.first.completed?).to be true
+    end
+
+    it "returns false if status is not completed" do
+      Fabricate(:mentoring_session, status: "pending")
+      expect(MentoringSession.first.completed?).to be false
+    end
+
   end
 
 end

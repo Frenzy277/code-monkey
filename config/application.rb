@@ -15,6 +15,6 @@ module DevPledge
       g.template_engine :haml
     end
     
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = "Eastern Time (US & Canada)"
   end
 end

@@ -14,7 +14,7 @@ class MentoringSession < ActiveRecord::Base
   end
 
   def feedback_submitted?
-    skill.feedbacks.where(giver: mentee).any?
+    feedbacks.where(giver: mentee).any?
   end
 
   def credit_balance_operations!

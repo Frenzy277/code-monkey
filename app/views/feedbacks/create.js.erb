@@ -1,0 +1,6 @@
+<% if @feedback.valid? %>
+  $('#feedbackFormModal').modal('hide');
+  $('#feedback_ms_<%= @mentoring_session.id %>').html("submitted");
+<% else %>
+  $('.feedback_errors').html("<%= j render 'shared/flash_messages' %>");
+<% end %>

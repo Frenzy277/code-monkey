@@ -34,7 +34,7 @@
               %td= mentee_sessions.skill.language.name
               %td on #{short_date(mentee_sessions.created_at)}
               %td= mentee_sessions.status
-              %td= secondary_status(mentee_sessions)
+              %td{id: "feedback_ms_#{mentee_sessions.id}"}= secondary_status(mentee_sessions)
               %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)
               %td
                 %a.pull-right(href="")

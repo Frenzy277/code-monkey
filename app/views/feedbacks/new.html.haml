@@ -1,0 +1,19 @@
+%section.jumbotron.sign
+  .container.col-sm-offset-4
+    %h1 Feedback form
+    %article.well.col-sm-5
+      = form_for [@mentoring_session, @feedback], html: { class: "form-horizontal", role: "form" } do |f|
+        .col-sm-12(style="padding-left: 0px;")
+          %h4 Mentoring Session with #{@mentoring_session.mentor.full_name}
+        - if @feedback.errors.any?
+          .alert.alert-danger.col-sm-12
+            %ul(style="list-style: none;")
+              - @feedback.errors.full_messages.each do |msg|
+                %li= msg
+        .col-sm-12.form-group
+          = f.check_box :recommended, {checked: true}
+          = f.label :recommended, "Recommend ?"
+        .col-sm-12.form-group
+          = f.label :content, "Feedback form:"
+          = f.text_area :content, rows: 5, placeholder: "Your feedback goes here.", class: "form-control"
+        = f.submit "Submit Feedback", class: "btn btn-primary"

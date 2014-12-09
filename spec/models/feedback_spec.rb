@@ -9,6 +9,5 @@ describe Feedback do
   it { should validate_presence_of(:giver) }
   it { should validate_presence_of(:mentoring_session) }
   it { should validate_presence_of(:content) }
-  it { should validate_presence_of(:recommended) }
 
 end

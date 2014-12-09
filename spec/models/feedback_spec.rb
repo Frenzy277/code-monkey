@@ -10,4 +10,14 @@ describe Feedback do
   it { should validate_presence_of(:mentoring_session) }
   it { should validate_presence_of(:content) }
 
+  describe "#language_name" do
+    it "returns language name for skill on whichs feedback is given" do
+      language = Fabricate(:language, name: "HTML")
+      skill    = Fabricate(:skill, language: language)
+      ms       = Fabricate(:mentoring_session, skill: skill)
+      feedback = Fabricate(:feedback, mentoring_session: ms)
+      expect(Feedback.first.language_name).to eq("HTML")
+    end    
+  end
+
 end

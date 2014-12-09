@@ -21,10 +21,10 @@
             %th(colspan="7" style="text-align: center;") Signed For
           %tr
             %th(width="3%") #
-            %th(width="20%") Language
-            %th(width="25%") When?
+            %th(width="17%") Language
+            %th(width="20%") When?
             %th(width="15%") Status
-            %th(width="15%") Feedback
+            %th(width="23%") Feedback
             %th(width="17%") Mentor
             %th(width="5%") Action
         %tbody
@@ -32,7 +32,7 @@
             %tr
               %td= (index + 1)
               %td= mentee_sessions.skill.language.name
-              %td on #{short_date(mentee_sessions.created_at)}
+              %td= short_date(mentee_sessions.created_at)
               %td= mentee_sessions.status
               %td{id: "feedback_ms_#{mentee_sessions.id}"}= secondary_status(mentee_sessions)
               %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)

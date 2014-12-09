@@ -69,7 +69,14 @@ describe MentoringSessionsController do
       it "does not create the mentoring_session" do
         post :create, skill_id: mentor_skill.id, support: "no match"
         expect(MentoringSession.count).to eq(0)
-      end    
+      end
+
+      it "does not create the mentoring session for mentor self" do
+        clear_current_user
+        set_current_user(bob)
+        post :create, skill_id: mentor_skill.id, support: "mentoring"
+        expect(MentoringSession.count).to eq(0)
+      end
 
       it "sets flash danger" do
         post :create, skill_id: mentor_skill.id, support: "no match"

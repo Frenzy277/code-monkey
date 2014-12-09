@@ -46,6 +46,13 @@ describe User do
     end
   end
 
+  describe "#short_name" do
+    it "returns full first name and first initial of last name" do
+      alice = Fabricate(:user, first_name: "Alice", last_name: "Wang")
+      expect(alice.short_name).to eq("Alice W.")
+    end
+  end
+
   describe "#mentor_sessions_not_completed" do
     let(:bob) { Fabricate(:user) }
     subject { bob.mentor_sessions_not_completed }

@@ -7,11 +7,13 @@ class MentoringSessionsController < ApplicationController
 
   def create
     skill = Skill.find(params[:skill_id])
-    mentoring_session = skill.mentoring_sessions.build(mentee: current_user, mentor: skill.mentor, support: params[:support], position: set_new_position(skill))
-    if mentoring_session.save
-      flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
-    else
-      flash[:danger] = "You are not allowed to do that."
+    unless current_user == skill.mentor
+      mentoring_session = skill.mentoring_sessions.build(mentee: current_user, mentor: skill.mentor, support: params[:support], position: set_new_position(skill))
+      if mentoring_session.save
+        flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
+      else
+        flash[:danger] = "You are not allowed to do that."
+      end
     end
     
     redirect_to dashboard_url

@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(" ")
   end
+
+  def short_name
+    [first_name, last_name[0].capitalize].join(" ") << "."
+  end
   
   def normalize_mentoring_sessions
     mentor_sessions.each_with_index do |ms, position|

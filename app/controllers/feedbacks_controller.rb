@@ -1,6 +1,11 @@
 class FeedbacksController < ApplicationController
   before_action :require_user
 
+  def index
+    @skill = Skill.find(params[:skill_id])
+    @feedbacks = @skill.feedbacks
+  end
+
   def new
     @mentoring_session = MentoringSession.find(params[:mentoring_session_id])
     @feedback = @mentoring_session.feedbacks.build

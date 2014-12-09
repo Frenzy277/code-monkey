@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   get 'ui(/:action)', controller: 'ui'
   resources :users, only: [:create, :show]
   resources :languages, only: [:show]
-  resources :skills, only: [:new, :create]
+  resources :skills, only: [:new, :create] do
+    resources :feedbacks, only: [:index]
+  end
   resources :mentoring_sessions, only: [:create, :destroy] do
     collection do
       patch 'update', to: "mentoring_sessions#update_sessions", as: :update

@@ -19,139 +19,17 @@
         - @user.skills.each do |skill|
           .col-sm-6.col-md-4
             .thumbnail
-              = image_tag("html.jpg", alt: "html")
+              = image_tag(skill.language.image_url, alt: skill.language.name)
               .caption
                 %p
                   Experience since:
                   %span.badge= skill.experience.year
                 %p Code helped in: #{skill.helped_total} projects
                 %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+                  = link_to "Recommendations:", skill_feedbacks_path(skill), data: { toggle: "modal", target: "#recommendationsModal"}, remote: true
                   %span.badge= skill.feedbacks.count
                 %p.thumbnail-buttons
                   Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-          .col-sm-6.col-md-4
-            .thumbnail
-              = image_tag("css.jpg", alt: "css")
-              .caption
-                %p 
-                  Experience since:
-                  %span.badge 2009
-                %p Code helped in: 20 projects
-                %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                  %span.badge 9
-                %p.thumbnail-buttons
-                  Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-          .col-sm-6.col-md-4
-            .thumbnail
-              = image_tag("angular.js.jpg", alt: "angular")
-              .caption
-                %p 
-                  Experience since:
-                  %span.badge 2009
-                %p Code helped in: 20 projects
-                %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                  %span.badge 9
-                %p.thumbnail-buttons
-                  Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-          .col-sm-6.col-md-4
-            .thumbnail
-              = image_tag("rails.jpg", alt: "rails")
-              .caption
-                %p 
-                  Experience since:
-                  %span.badge 2009
-                %p Code helped in: 20 projects
-                %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                  %span.badge 9
-                %p.thumbnail-buttons
-                  Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-          .col-sm-6.col-md-4
-            .thumbnail
-              = image_tag("ruby.jpg", alt: "ruby")
-              .caption
-                %p 
-                  Experience since:
-                  %span.badge 2009
-                %p Code helped in: 20 projects
-                %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
-                  %span.badge 9
-                %p.thumbnail-buttons
-                  Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-          .col-sm-6.col-md-4
-            .thumbnail
-              = image_tag("jquery.jpg", alt: "jquery")
-              .caption
-                %p 
-                  Experience since:
-                  %span.badge 2009
-                %p Code helped in: 20 projects
-                %p
-                  %a(href="" data-toggle="modal" data-target="#RecommendationModal")Recommendations:
-                  %span.badge 9
-                %p.thumbnail-buttons
-                  Ask for:
-                  %a(href="#" class="btn btn-primary" role="button")Mentoring
-                  %a(href="#" class="btn btn-default" role="button")Code Review
-
-
-/ Modal
-.modal.fade#RecommendationModal(tabindex="-1" role="dialog" aria-labelledby="Recommendations" aria-hidden="true")
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close(type="button" data-dismiss="modal")
-          %span(aria-hidden="true") &times;
-        %h4.modal-title#Recommendations
-          %span.glyphicon.glyphicon-bullhorn
-          Feedback: John Doe    
-      .modal-body
-        .row
-          .col-sm-2.modal-feedback-photo
-            .thumbnail.modal-image
-              = image_tag("code monkey.png", alt: "John Smith")
-            %span.glyphicon.glyphicon-thumbs-up
-            %a(href="") Jessica D.
-          .col-sm-10
-            %h4.feedback-language HTML
-            %p.user-feedbak= Faker::Lorem.words(10).join(" ")
-            %hr
-        .row
-          .col-sm-2.modal-feedback-photo
-            .thumbnail.modal-image
-              = image_tag("code monkey.png", alt: "John Smith")
-            %span.glyphicon.glyphicon-thumbs-up
-            %span.fullname
-              %a(href="") Jessica D.
-          .col-sm-10
-            %h4.feedback-language CSS
-            %p.user-feedbak= Faker::Lorem.words(100).join(" ")
-            %hr
-        .row
-          .col-sm-2.modal-feedback-photo
-            .thumbnail.modal-image
-              = image_tag("code monkey.png", alt: "John Smith")
-            %span.glyphicon.glyphicon-thumbs-down
-            %span.fullname
-              %a(href="") Kevin L.
-          .col-sm-10
-            %h4.feedback-language Rails
-            %p.user-feedbak= Faker::Lorem.words(20).join(" ")
-            %hr  
-      .modal-footer
-        %button(type="button" class="btn btn-default" data-dismiss="modal") Close
-        
+                  = link_to "Mentoring", mentoring_sessions_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary #{'disabled' if skill.mentor == current_user}"
+                  = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if skill.mentor == current_user}"
+%div.skill_feedbacks

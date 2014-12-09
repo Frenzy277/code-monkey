@@ -3,9 +3,35 @@ require 'spec_helper'
 describe FeedbacksController do
   let(:alice) { Fabricate(:user) }
   before { set_current_user(alice) }
-  let!(:ms) { Fabricate(:mentoring_session, mentee: alice) }
+
+  describe "GET index" do # AJAX only
+    let!(:rails) { Fabricate(:skill) }
+
+    it "sets the @skill" do
+      xhr :get, :index, skill_id: rails.id
+      expect(assigns(:skill)).to eq(rails)
+    end
+
+    it "sets the @feedbacks" do
+      testing = Fabricate(:mentoring_session, skill: rails)
+      rendering = Fabricate(:mentoring_session, skill: rails)
+      feedback_tests = Fabricate(:feedback, mentoring_session: testing)
+      feedback_renders = Fabricate(:feedback, mentoring_session: rendering)
+      xhr :get, :index, skill_id: rails.id
+      expect(assigns(:feedbacks)).to eq([feedback_renders, feedback_tests])
+    end
+
+    it "redirects to root_url for unauthorized" do
+      clear_current_user
+      xhr :get, :index, skill_id: rails.id
+      expect(response).to redirect_to root_url
+    end
+
+  end
 
   describe "GET new" do
+    let!(:ms) { Fabricate(:mentoring_session, mentee: alice) }
+
     context "AJAX request" do
       it "sets the @mentoring_session" do        
         xhr :get, :new, mentoring_session_id: ms.id
@@ -44,6 +70,7 @@ describe FeedbacksController do
   end
 
   describe "POST create" do
+    let!(:ms) { Fabricate(:mentoring_session, mentee: alice) }
 
     context "AJAX request" do
       context "with valid data" do

@@ -18,8 +18,8 @@
               Experience since:
               %span.badge= skill.experience.year
             %p Code helped in: #{skill.helped_total} projects
-            %p
-              = link_to "Recommendations:", skill_feedbacks_path(skill), data: { toggle: "modal", target: "#recommendationsModal"}, remote: true
+            %p.recommendations
+              = link_to "Recommendations:", skill_feedbacks_path(skill), remote: true
               %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
               Ask for:

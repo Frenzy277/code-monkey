@@ -12,7 +12,7 @@
           %h2 There are no recommendations yet.
         - else 
           - @feedbacks.each do |feedback|
-            .row
+            .row{id: "feedback_#{feedback.id}"}
               .col-sm-2.modal-feedback-photo
                 .thumbnail.modal-image
                   = image_tag(feedback.giver.image_url, alt: feedback.giver.short_name)

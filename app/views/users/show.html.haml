@@ -10,11 +10,14 @@
     %h2 About
     %p
     - if @user.about_me.blank?
-      "User has not provided any information."
+      User has not provided any information.
     - else
       = @user.about_me  
     %article.skill_mentors
-      %h2 Mentoring in these areas
+      - if @user.skills.empty?
+        %h2 User is not providing any mentoring.
+      - else
+        %h2 Mentoring in these areas
       .row
         - @user.skills.each do |skill|
           .col-sm-6.col-md-4

@@ -11,6 +11,6 @@ class Skill < ActiveRecord::Base
   end
 
   def mentor_sessions_total
-    mentor.mentor_sessions.count
+    mentor.mentor_sessions_not_completed.count
   end
 end

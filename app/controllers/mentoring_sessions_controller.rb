@@ -46,11 +46,12 @@ private
         if !mentoring_session.completed? && ms_data[:status] == "completed"
           mentoring_session.credit_balance_operations!
           mentoring_session.code_helped_operations!
+          ms_data[:position] = nil
         end
 
         mentoring_session.update!(position: ms_data[:position], status: ms_data[:status]) if mentoring_session.mentor == current_user
       end
     end
-  end 
+  end
 
 end

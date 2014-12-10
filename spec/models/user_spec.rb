@@ -62,13 +62,13 @@ describe User do
     end
 
     it "returns 1 mentor session - not completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed")
+      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
       accepted = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
       expect(subject).to match_array([accepted])
     end
 
     it "returns many mentor sessions - not completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed")
+      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
       accepted = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
       pending = Fabricate(:mentoring_session, mentor: bob, status: "pending")
       rejected = Fabricate(:mentoring_session, mentor: bob, status: "rejected")
@@ -76,7 +76,35 @@ describe User do
     end
 
     it "does not return completed mentor sessions" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed")
+      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+      expect(subject).to match_array([])
+    end
+  end
+
+  describe "#mentor_sessions_completed" do
+    let(:bob) { Fabricate(:user) }
+    subject { bob.mentor_sessions_completed}
+
+    it "returns []" do
+      expect(subject).to match_array([])
+    end
+
+    it "returns 1 mentor session - completed" do
+      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
+      completed = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+      expect(subject).to match_array([completed])
+    end
+
+    it "returns many mentor sessions - completed" do
+      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
+      completed1 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+      completed2 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+      completed3 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+      expect(subject).to match_array([completed1, completed2, completed3])
+    end
+
+    it "does not return non-completed mentor sessions" do
+      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
       expect(subject).to match_array([])
     end
   end

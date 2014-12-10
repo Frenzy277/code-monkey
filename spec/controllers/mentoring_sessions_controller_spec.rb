@@ -10,10 +10,10 @@ describe MentoringSessionsController do
       alice = Fabricate(:user)
       doug = Fabricate(:user)
       bob_skill = Fabricate(:skill, mentor: bob)
-      qi1 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: doug)
-      qi2 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: alice)
+      ms1 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: doug)
+      ms2 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: alice)
       get :index
-      expect(assigns(:mentoring_sessions)).to match_array([qi1, qi2])
+      expect(assigns(:mentoring_sessions)).to match_array([ms1, ms2])
     end
 
     it "redirects to root_url for unauthorized users" do
@@ -24,8 +24,8 @@ describe MentoringSessionsController do
   end
 
   describe "POST create" do
-    let(:alice) { Fabricate(:user) }
-    let(:bob)   { Fabricate(:user) }
+    let(:alice)        { Fabricate(:user) }
+    let(:bob)          { Fabricate(:user) }
     let(:mentor_skill) { Fabricate(:skill, mentor: bob) }
     before { set_current_user(alice) }
 
@@ -52,16 +52,19 @@ describe MentoringSessionsController do
 
       it "sets flash success" do
         post :create, skill_id: mentor_skill.id, support: "mentoring"
-        expect(flash[:success]).to be_present
+        should set_the_flash[:success]
       end
 
-      it "sets correct position for multiple mentoring_sessions" do
-        Fabricate(:mentoring_session, skill: mentor_skill, mentor: bob, mentee: alice)
+      it "sets position for multiple uncomplete mentoring sessions" do
+        Fabricate.times(2, :mentoring_session, mentor: bob, status: "completed", position: nil)
+        Fabricate(:mentoring_session, mentor: bob, status: "accepted")
+        Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
+        Fabricate(:mentoring_session, mentor: bob, status: "rejected")
         html_skill = Fabricate(:skill, mentor: bob)
         post :create, skill_id: html_skill.id, support: "mentoring"
         
         html_mentoring_session = MentoringSession.where(skill: html_skill, mentee: alice).first
-        expect(html_mentoring_session.position).to eq(2)
+        expect(html_mentoring_session.position).to eq(3)
       end
     end
 
@@ -80,7 +83,7 @@ describe MentoringSessionsController do
 
       it "sets flash danger" do
         post :create, skill_id: mentor_skill.id, support: "no match"
-        expect(flash[:danger]).to be_present
+        should set_the_flash[:danger]
       end
     end
 
@@ -112,9 +115,14 @@ describe MentoringSessionsController do
           expect(bob.mentor_sessions).to eq([ms2, ms1])
         end
 
-        it "normalizes the positions" do
+        it "normalizes the positions for non-completed status" do
           patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3, status: "pending"}, {id: ms2.id, position: 2, status: "pending"}]
           expect(bob.mentor_sessions.map(&:position)).to eq([1, 2])
+        end
+
+        it "normalizes the positions for mixed statuses" do
+          patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3, status: "pending"}, {id: ms2.id, position: 2, status: "completed"}]
+          expect(bob.mentor_sessions.map(&:position)).to eq([1, nil])
         end
       end
 
@@ -197,20 +205,20 @@ describe MentoringSessionsController do
 
         it "sets flash danger" do
           patch :update_sessions, mentoring_sessions: [{id: mentoring_session.id, position: 3, status: "xxx"}]
-          expect(flash[:danger]).to be_present
+          should set_the_flash[:danger]
         end
       end
 
       context "balance on status completed" do
         it "does not update +1 balance for mentor" do
-          ms = Fabricate(:mentoring_session, mentor: bob, status: "completed")
+          ms = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
           patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
           expect(bob.reload.balance).to eq(1)
         end
 
         it "does not update -1 balance for mentee" do
           alice = Fabricate(:user)
-          ms = Fabricate(:mentoring_session, mentee: alice, mentor: bob, status: "completed")
+          ms = Fabricate(:mentoring_session, mentee: alice, mentor: bob, status: "completed", position: nil)
           patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
           expect(alice.reload.balance).to eq(1)
         end
@@ -218,7 +226,7 @@ describe MentoringSessionsController do
 
       context "code helped projects update on status completed" do
         it "does not update +1 helped_total for mentor" do
-          ms = Fabricate(:mentoring_session, mentor: bob, status: "completed")
+          ms = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
           patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
           expect(Skill.first.helped_total).to eq(0)
         end

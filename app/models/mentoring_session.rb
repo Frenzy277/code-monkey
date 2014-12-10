@@ -5,10 +5,11 @@ class MentoringSession < ActiveRecord::Base
   has_many :feedbacks
 
   validates_presence_of :status, :skill, :mentee, :support
-  validates_numericality_of :position, only_integer: true
+  validates_numericality_of :position, only_integer: true, unless: :completed?
   validates_inclusion_of :support, within: %w(mentoring code\ review)
   validates_inclusion_of :status, within: %w(pending accepted rejected completed)
-
+  validates_absence_of :position, if: :completed?
+ 
   def mentor_short_name
     "#{mentor.first_name} #{mentor.last_name[0].upcase}."
   end

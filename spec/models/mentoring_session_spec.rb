@@ -13,14 +13,23 @@ describe MentoringSession do
   it { should validate_presence_of(:skill) }
   it { should validate_presence_of(:mentee) }
   it { should validate_presence_of(:support) }
-  it { should validate_numericality_of(:position).only_integer }
   it { should validate_inclusion_of(:support).in_array(%w(mentoring code\ review)) }
-  
+
+  context "if status is not completed" do
+    before { subject.stub(:completed?) { false } }
+    it { should validate_numericality_of(:position).only_integer }
+  end
+
+  context "if status completed" do
+    before { subject.stub(:completed?) { true } }
+    it { should validate_absence_of(:position) }
+  end
+
   it "sets default status for new mentoring session" do
     Fabricate(:mentoring_session)
     expect(MentoringSession.first.status).to eq("pending")
   end
-
+  
   describe "#mentor_short_name" do
     it "returns short name of mentor for mentoring session" do
       john = Fabricate(:user, first_name: "John", last_name: "Doe")
@@ -45,7 +54,7 @@ describe MentoringSession do
 
   describe "#completed?" do
     it "returns true if status is completed" do
-      Fabricate(:mentoring_session, status: "completed")
+      Fabricate(:mentoring_session, status: "completed", position: nil)
       expect(MentoringSession.first.completed?).to be true
     end
 
@@ -53,11 +62,5 @@ describe MentoringSession do
       Fabricate(:mentoring_session, status: "pending")
       expect(MentoringSession.first.completed?).to be false
     end
-
   end
-
 end
-
-
-
-

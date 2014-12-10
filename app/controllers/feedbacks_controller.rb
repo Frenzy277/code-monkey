@@ -23,7 +23,7 @@ class FeedbacksController < ApplicationController
     respond_to do |format|
       format.html do
         if @feedback.save
-          flash[:success] = "xxx"
+          flash[:success] = "Thank you for submitting the feedback!"
           redirect_to dashboard_url
         else
           render :new
@@ -31,7 +31,7 @@ class FeedbacksController < ApplicationController
       end
 
       format.js do
-        flash.now[:danger] = "xxx" unless @feedback.save
+        flash.now[:danger] = "Feedback can't be blank." unless @feedback.save
       end
     end
   end

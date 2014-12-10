@@ -13,15 +13,16 @@
         .thumbnail{id: "mentor_#{skill.mentor.id}"}
           = image_tag(@language.image_url, alt: @language.name)
           .caption
-            %h3.mentor-name= skill.mentor.full_name
+            %h3.mentor-name= link_to skill.mentor.full_name, skill.mentor
             %p
               Experience since:
               %span.badge= skill.experience.year
             %p Code helped in: #{skill.helped_total} projects
             %p
-              %a(href="" data-toggle="modal" data-target="#RecommendationModal") Recommendations:
+              = link_to "Recommendations:", skill_feedbacks_path(skill), data: { toggle: "modal", target: "#recommendationsModal"}, remote: true
               %span.badge= skill.total_feedbacks
             %p.thumbnail-buttons
               Ask for:
               = link_to "Mentoring", mentoring_sessions_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary #{'disabled' if skill.mentor == current_user}"
               = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if skill.mentor == current_user}"
+%div.skill_feedbacks

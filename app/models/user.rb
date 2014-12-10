@@ -22,13 +22,18 @@ class User < ActiveRecord::Base
   end
   
   def normalize_mentoring_sessions
-    mentor_sessions.each_with_index do |ms, position|
-      ms.update(position: position + 1)
+      
+    mentor_sessions_not_completed.each_with_index do |ms, position|
+      ms.update_column(:position, position + 1)
     end
   end
 
   def mentor_sessions_not_completed
     mentor_sessions.where.not(status: "completed")
+  end
+
+  def mentor_sessions_completed
+    mentor_sessions.where(status: "completed")
   end
 
 

@@ -9,13 +9,13 @@ feature "mentor interacts with mentoring sessions" do
 
   scenario "mentor checks mentoring sessions" do
     click_link "Mentoring Sessions"
-    expect_to_see('h1', "Mentoring Sessions")
+    expect_to_see("Mentoring Sessions")
     expect_url(mentoring_sessions_url)
   end
 end
 
-def expect_to_see(h, text)
-  expect(page).to have_css(h, text: text)
+def expect_to_see(text)
+  expect(page).to have_css("h1", text: text)
 end
 
 def becomes_a_mentor

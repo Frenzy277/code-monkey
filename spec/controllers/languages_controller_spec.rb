@@ -12,7 +12,7 @@ describe LanguagesController do
     end
 
     it_behaves_like "require sign in" do
-      let(:action) { get :index }      
+      let(:action) { get :index }
     end
   end
 

@@ -7,14 +7,7 @@ class MentoringSessionsController < ApplicationController
 
   def create
     skill = Skill.find(params[:skill_id])
-    unless current_user == skill.mentor
-      mentoring_session = skill.mentoring_sessions.build(mentee: current_user, mentor: skill.mentor, support: params[:support], position: set_new_position(skill))
-      if mentoring_session.save
-        flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
-      else
-        flash[:danger] = "You are not allowed to do that."
-      end
-    end
+    create_mentoring_session(skill) unless current_user == skill.mentor
     
     redirect_to dashboard_url
   end
@@ -26,7 +19,7 @@ class MentoringSessionsController < ApplicationController
 
         current_user.normalize_mentoring_sessions
       rescue ActiveRecord::RecordInvalid
-        flash[:danger] = "xxx"
+        flash[:danger] = "Invalid request."
       end
     end
 
@@ -37,6 +30,15 @@ private
 
   def set_new_position(skill)
     skill.mentor_sessions_total + 1
+  end
+
+  def create_mentoring_session(skill)    
+    mentoring_session = skill.mentoring_sessions.build(mentee: current_user, mentor: skill.mentor, support: params[:support], position: set_new_position(skill))
+    if mentoring_session.save
+      flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
+    else
+      flash[:danger] = "You are not allowed to do that."
+    end
   end
 
   def update_mentoring_sessions

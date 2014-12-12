@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       flash[:success] = "You have logged in."
       redirect_to dashboard_url
     else
-      flash[:danger] = "Invalid email or password."
+      flash.now[:danger] = "Invalid email or password."
       render :new
     end
   end

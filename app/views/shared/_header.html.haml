@@ -9,7 +9,7 @@
       - if logged_in?
         %li= link_to "Credit: #{pluralize(current_user.balance, "hour")}"
         %li= link_to "Dashboard", dashboard_path
-        - if mentor?
+        - if current_user.has_any_skills?
           %li= link_to "Mentoring Sessions", mentoring_sessions_path
         %li= link_to "Account"
         %li

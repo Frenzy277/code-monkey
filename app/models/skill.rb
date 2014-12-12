@@ -2,7 +2,8 @@ class Skill < ActiveRecord::Base
   belongs_to :mentor, class_name: "User"
   belongs_to :language
   has_many :mentoring_sessions, -> { order(:position) }
-  has_many :feedbacks, -> { order(created_at: :desc) }, through: :mentoring_sessions
+  has_many :feedbacks, -> { order(created_at: :desc) },
+                       through: :mentoring_sessions
 
   validates_presence_of :mentor, :language, :experience
 

@@ -13,7 +13,9 @@ describe MentoringSession do
   it { should validate_presence_of(:skill) }
   it { should validate_presence_of(:mentee) }
   it { should validate_presence_of(:support) }
-  it { should validate_inclusion_of(:support).in_array(%w(mentoring code\ review)) }
+  it { should validate_inclusion_of(:support)
+                                        .in_array(%w(mentoring code\ review)) }
+  it { should delegate_method(:mentor_short_name).to(:mentor).as(:short_name) }
 
   context "if status is not completed" do
     before { subject.stub(:completed?) { false } }
@@ -30,14 +32,6 @@ describe MentoringSession do
     expect(MentoringSession.first.status).to eq("pending")
   end
   
-  describe "#mentor_short_name" do
-    it "returns short name of mentor for mentoring session" do
-      john = Fabricate(:user, first_name: "John", last_name: "Doe")
-      Fabricate(:mentoring_session, mentor: john)
-      expect(MentoringSession.first.mentor_short_name).to eq("John D.")
-    end
-  end
-
   describe "#feedback_submitted?" do
     it "returns true if feedback for mentoring_session from mentee exists" do
       alice = Fabricate(:user)

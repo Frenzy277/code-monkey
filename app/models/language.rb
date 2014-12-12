@@ -3,7 +3,6 @@ class Language < ActiveRecord::Base
 
   validates_presence_of :name
 
-
   def total_skills
     skills.count unless skills.count == 0
   end

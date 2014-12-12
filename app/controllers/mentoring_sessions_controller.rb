@@ -7,7 +7,7 @@ class MentoringSessionsController < ApplicationController
 
   def create
     skill = Skill.find(params[:skill_id])
-    create_mentoring_session(skill) unless current_user == skill.mentor
+    create_mentoring_session(skill) unless current_user.mentor?(skill)
     
     redirect_to dashboard_url
   end
@@ -33,7 +33,13 @@ private
   end
 
   def create_mentoring_session(skill)    
-    mentoring_session = skill.mentoring_sessions.build(mentee: current_user, mentor: skill.mentor, support: params[:support], position: set_new_position(skill))
+    mentoring_session = skill.mentoring_sessions.build(
+                          mentee: current_user, 
+                          mentor: skill.mentor, 
+                          support: params[:support], 
+                          position: set_new_position(skill)
+                        )
+    
     if mentoring_session.save
       flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
     else
@@ -51,9 +57,11 @@ private
           ms_data[:position] = nil
         end
 
-        mentoring_session.update!(position: ms_data[:position], status: ms_data[:status]) if mentoring_session.mentor == current_user
+        mentoring_session.update!(
+          position: ms_data[:position], 
+          status: ms_data[:status]
+        ) if current_user.mentor?(mentoring_session)
       end
     end
   end
-
 end

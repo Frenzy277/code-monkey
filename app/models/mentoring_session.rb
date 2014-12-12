@@ -9,10 +9,8 @@ class MentoringSession < ActiveRecord::Base
   validates_inclusion_of :support, within: %w(mentoring code\ review)
   validates_inclusion_of :status, within: %w(pending accepted rejected completed)
   validates_absence_of :position, if: :completed?
- 
-  def mentor_short_name
-    "#{mentor.first_name} #{mentor.last_name[0].upcase}."
-  end
+
+  delegate :short_name, to: :mentor, prefix: :mentor
 
   def feedback_submitted?
     feedbacks.where(giver: mentee).any?

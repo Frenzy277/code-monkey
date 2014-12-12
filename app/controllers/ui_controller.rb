@@ -4,7 +4,4 @@ class UiController < ApplicationController
   end
 
   layout "ui"
-
-  def index
-  end
 end

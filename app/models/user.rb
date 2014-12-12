@@ -2,12 +2,15 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
   has_many :skills, foreign_key: "mentor_id"
   has_many :feedbacks, foreign_key: "giver_id"
-  has_many :mentee_sessions, class_name: "MentoringSession", foreign_key: "mentee_id"
-  has_many :mentor_sessions, -> { order(:position) }, class_name: "MentoringSession", foreign_key: "mentor_id"
-  
+  has_many :mentee_sessions, class_name: "MentoringSession", 
+                             foreign_key: "mentee_id"
+  has_many :mentor_sessions, -> { order(:position) }, 
+                             class_name: "MentoringSession", 
+                             foreign_key: "mentor_id"
+
   before_save { |user| user.email = user.email.downcase }
   
-  validates :first_name, :last_name, :email, :password, :balance, presence: true
+  validates_presence_of :first_name, :last_name, :email, :password, :balance
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]{2,}\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }, 
                     uniqueness: { case_sensitive: false }  
@@ -18,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def short_name
-    [first_name, last_name[0].capitalize].join(" ") << "."
+    [first_name, last_name[0].upcase].join(" ") << "."
   end
   
   def normalize_mentoring_sessions      
@@ -34,4 +37,13 @@ class User < ActiveRecord::Base
   def mentor_sessions_completed
     mentor_sessions.where(status: "completed")
   end
+
+  def mentor?(obj)
+    obj.mentor == self
+  end
+
+  def has_any_skills?
+    skills.any?
+  end
+
 end

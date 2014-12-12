@@ -16,7 +16,9 @@ describe SessionsController do
   end
 
   describe "POST create" do
-    let!(:alice) { Fabricate(:user, email: "alice@email.com", password: "password") }
+    let!(:alice) do
+      Fabricate(:user, email: "alice@email.com", password: "password")
+    end
 
     context "with valid credentials" do
       it "redirects to dashboard url" do
@@ -47,7 +49,7 @@ describe SessionsController do
         should render_template(:new)
       end
 
-      it { should set_the_flash[:danger] }
+      it { should set_the_flash.now[:danger] }
     end
   end
 

@@ -3,7 +3,7 @@
     .row
       .col-sm-2
         .thumbnail.circ
-          = image_tag("code monkey.png", alt: "John Smith")
+          = image_tag("code monkey.png", alt: @user.full_name)
       .col-sm-10
         %h1.user-name= @user.full_name
         %h4.contact= @user.email
@@ -29,10 +29,10 @@
                   %span.badge= skill.experience.year
                 %p Code helped in: #{skill.helped_total} projects
                 %p
-                  = link_to "Recommendations:", skill_feedbacks_path(skill), data: { toggle: "modal", target: "#recommendationsModal"}, remote: true
+                  = link_to "Recommendations:", skill_feedbacks_path(skill), remote: true
                   %span.badge= skill.feedbacks.count
                 %p.thumbnail-buttons
                   Ask for:
-                  = link_to "Mentoring", mentoring_sessions_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary #{'disabled' if skill.mentor == current_user}"
-                  = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if skill.mentor == current_user}"
+                  = link_to "Mentoring", mentoring_sessions_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary #{'disabled' if current_user.mentor?(skill)}"
+                  = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if current_user.mentor?(skill)}"
 %div.skill_feedbacks

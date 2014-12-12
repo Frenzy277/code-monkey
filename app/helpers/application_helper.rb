@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def mentor?
-    current_user.skills.any?
-  end
-
   def status_options
     %w(pending accepted rejected completed)
   end
@@ -22,7 +18,7 @@ module ApplicationHelper
     elsif ms.status == "completed" && ms.feedback_submitted?
       "submitted"
     else
-      link_to "feedback", new_mentoring_session_feedback_path(ms), data: { toggle: "modal", target: "#feedbackFormModal"}, remote: true
+      link_to "feedback", new_mentoring_session_feedback_path(ms), remote: true
     end
   end
 

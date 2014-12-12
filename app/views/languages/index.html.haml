@@ -27,14 +27,14 @@
             %th(width="23%") Feedback
             %th(width="22%") Mentor
         %tbody
-          - current_user.mentee_sessions.each_with_index do |mentee_sessions, index|
+          - current_user.mentee_sessions.each_with_index do |mentee_session, index|
             %tr
               %td= (index + 1)
-              %td= mentee_sessions.skill.language.name
-              %td= short_date(mentee_sessions.created_at)
-              %td= mentee_sessions.status
-              %td{id: "feedback_ms_#{mentee_sessions.id}"}= secondary_status(mentee_sessions)
-              %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)
+              %td= mentee_session.skill.language.name
+              %td= short_date(mentee_session.created_at)
+              %td= mentee_session.status
+              %td{id: "feedback_ms_#{mentee_session.id}"}= secondary_status(mentee_session)
+              %td= link_to mentee_session.mentor_short_name, user_path(mentee_session.mentor)
   %h2.mid-headers How to get started?
   %h4 We are excited to help you grow as developer. Here is how it works:
   %dl.queue.col-sm-8

@@ -12,21 +12,19 @@ feature "front page content" do
 
   scenario "has working sign up link" do
     click_on "Sign up"
-    expect(current_path).to eq(sign_up_path)
+    expect_url(sign_up_url)
   end
 
   scenario "has working sign in link" do
     click_on "Sign in"
-    expect(current_path).to eq(sign_in_path)
+    expect_url(sign_in_url)
   end
 
   scenario "visitor interacts with language links" do
-
     within(:css, '.languages') do
       click_on "HTML"
       expect(current_path).to eq(language_path(html))
     end
-
   end
 
 end

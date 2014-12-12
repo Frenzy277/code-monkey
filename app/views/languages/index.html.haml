@@ -25,8 +25,7 @@
             %th(width="20%") When?
             %th(width="15%") Status
             %th(width="23%") Feedback
-            %th(width="17%") Mentor
-            %th(width="5%") Action
+            %th(width="22%") Mentor
         %tbody
           - current_user.mentee_sessions.each_with_index do |mentee_sessions, index|
             %tr
@@ -36,9 +35,6 @@
               %td= mentee_sessions.status
               %td{id: "feedback_ms_#{mentee_sessions.id}"}= secondary_status(mentee_sessions)
               %td= link_to mentee_sessions.mentor_short_name, user_path(mentee_sessions.mentor)
-              %td
-                %a.pull-right(href="")
-                  %i.glyphicon.glyphicon-remove           
   %h2.mid-headers How to get started?
   %h4 We are excited to help you grow as developer. Here is how it works:
   %dl.queue.col-sm-8
@@ -59,6 +55,5 @@
     %dd.col-sm-10
       %h4 Give or receive 1 hour coding help
       %p
-        %em Choose one and get in touch with your mentor to boost your skills or 
-
+        %em Choose one and get in touch with your mentor to boost your skills
 %div.feedback

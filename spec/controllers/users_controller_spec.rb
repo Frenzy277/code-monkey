@@ -10,42 +10,32 @@ describe UsersController do
 
     it "renders no header layout" do
       get :new
-      expect(response).to render_template "layouts/no_header"
+      should render_with_layout("no_header")
     end
   end
 
   describe "POST create" do
     context "with valid inputs" do
-      it "redirects to sign in url" do
-        post :create, user: Fabricate.attributes_for(:user)
-        expect(response).to redirect_to sign_in_url
-      end
-
+      before { post :create, user: Fabricate.attributes_for(:user) }
+      it { should redirect_to sign_in_url }
+      it { should set_the_flash[:success] }
       it "creates the user" do
-        post :create, user: Fabricate.attributes_for(:user)
         expect(User.count).to eq(1)
-      end
-
-      it "sets flash success" do
-        post :create, user: Fabricate.attributes_for(:user)
-        expect(flash[:success]).to be_present
       end
     end
 
     context "with invalid inputs" do
+      before { post :create, user: Fabricate.attributes_for(:user, email: "foo@bar") }
       it "does not create the user" do
-        post :create, user: Fabricate.attributes_for(:user, email: "foo@bar")
         expect(User.count).to eq(0)
       end
 
-      it "renders correct templates :new and no_header layout" do
-        post :create, user: Fabricate.attributes_for(:user, email: "foo@bar")
-        expect(response).to render_template "layouts/no_header"
-        expect(response).to render_template :new
+      it "renders correct templates" do
+        should render_with_layout("no_header")
+        should render_template(:new)
       end
 
-      it "sets the @user" do
-        post :create, user: Fabricate.attributes_for(:user, email: "foo@bar")
+      it "sets the @user" do        
         expect(assigns(:user)).to be_instance_of(User)
       end
     end
@@ -59,10 +49,11 @@ describe UsersController do
       expect(assigns(:user)).to eq(alice)
     end
 
-    it "redirects to root_url for unauthorized" do
-      alice = Fabricate(:user)
-      get :show, id: alice.id
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) do
+        alice = Fabricate(:user)
+        get :show, id: alice.id
+      end
     end
   end
 end

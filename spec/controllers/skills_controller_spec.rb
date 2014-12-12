@@ -9,86 +9,49 @@ describe SkillsController do
       expect(assigns(:skill)).to be_instance_of(Skill)
     end
 
-    it "for unauthorized users" do
-      get :new
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) { get :new }
     end
   end
 
   describe "POST create" do
-    context "with valid data" do
-      it "redirects to dashboard" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
+    let(:alice) { Fabricate(:user) }
+    let(:ruby)  { Fabricate(:language) }
+    before { set_current_user(alice) }
 
+    context "with valid data" do
+      before do
         post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
-        expect(response).to redirect_to dashboard_url
       end
 
+      it { should redirect_to dashboard_url }
+      it { should set_the_flash[:success] }
       it "creates the skill under mentor" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
-
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(Skill.first.mentor).to eq(alice)
       end
-
       it "creates the skill under language" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
-
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
         expect(Skill.first.language).to eq(ruby)
-      end
-
-      it "sets flash success" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
-
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice)
-        expect(flash[:success]).to be_present
       end
     end
 
     context "with invalid data" do
-      it "does not create the skill" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
+      before do
+        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "")
+      end
 
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "", )
+      it "does not create the skill" do
         expect(Skill.count).to eq(0)
       end
-
-      it "renders :new template" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
-
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "")
-        expect(response).to render_template :new
-      end
-
+      it { should render_template(:new) }
       it "sets the @skill" do
-        alice = Fabricate(:user)
-        ruby = Fabricate(:language)
-        set_current_user(alice)
-
-        post :create, skill: Fabricate.attributes_for(:skill, language: ruby, mentor: alice, experience: "")
         expect(assigns(:skill)).to be_instance_of(Skill)
       end
     end
 
-    it "for unauthorized users" do
-      alice = Fabricate(:user)
-      ruby = Fabricate(:language)
-      post :create, skill: { language: ruby, mentor: alice, experience: "2014-01-01" }
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) do
+        post :create, skill: { language: ruby, mentor: alice, experience: "2014-01-01" }
+      end
     end
   end
-
 end

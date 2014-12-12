@@ -16,10 +16,8 @@ describe MentoringSessionsController do
       expect(assigns(:mentoring_sessions)).to match_array([ms1, ms2])
     end
 
-    it "redirects to root_url for unauthorized users" do
-      clear_current_user
-      get :index
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) { get :index }
     end
   end
 
@@ -87,18 +85,14 @@ describe MentoringSessionsController do
       end
     end
 
-    it "redirects to root_url for unauthorized users" do
-      clear_current_user
-      post :create, skill_id: mentor_skill.id, support: "no match"
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) { post :create, skill_id: mentor_skill.id, support: "no match" }
     end
   end
 
   describe "PATCH update_sessions" do
     let(:bob) { Fabricate(:user) }
-    before do
-      set_current_user(bob)
-    end
+    before { set_current_user(bob) }
 
     context "with valid data" do
       let(:ms1) { Fabricate(:mentoring_session, mentor: bob, position: 1) }
@@ -131,7 +125,7 @@ describe MentoringSessionsController do
           ms = Fabricate(:mentoring_session, mentor: bob, status: "pending")
           patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "accepted"}]
           expect(MentoringSession.first.status).to eq("accepted")
-        end        
+        end
       end
 
       context "balance on status completed" do
@@ -233,11 +227,11 @@ describe MentoringSessionsController do
       end
     end
 
-    it "redirects to root_url for unauthorized users" do
-      clear_current_user      
-      ms = Fabricate(:mentoring_session)
-      patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "accepted"}]
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) do
+        ms = Fabricate(:mentoring_session)
+        patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "accepted"}]
+      end
     end
   end
 end

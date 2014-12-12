@@ -21,7 +21,7 @@
       .row
         - @user.skills.each do |skill|
           .col-sm-6.col-md-4
-            .thumbnail
+            .thumbnail{id: "mentor-skill-#{skill.id}"}
               = image_tag(skill.language.image_url, alt: skill.language.name)
               .caption
                 %p

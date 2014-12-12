@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe LanguagesController do
-
   describe "GET index" do
     it "sets the @languages" do
       set_current_user
@@ -12,10 +11,8 @@ describe LanguagesController do
       expect(assigns(:languages)).to match_array([html, css, rails])
     end
 
-    it "redirects unauthenticated users" do
-      clear_current_user
-      get :index
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) { get :index }      
     end
   end
 
@@ -28,7 +25,6 @@ describe LanguagesController do
   end
 
   describe "GET front" do
-
     it "sets the @languages" do
       html  = Fabricate(:language)
       css   = Fabricate(:language)
@@ -49,5 +45,4 @@ describe LanguagesController do
       expect(response).to redirect_to dashboard_url
     end
   end
-
 end

@@ -21,12 +21,9 @@ describe FeedbacksController do
       expect(assigns(:feedbacks)).to eq([feedback_renders, feedback_tests])
     end
 
-    it "redirects to root_url for unauthorized" do
-      clear_current_user
-      xhr :get, :index, skill_id: rails.id
-      expect(response).to redirect_to root_url
+    it_behaves_like "require sign in" do
+      let(:action) { xhr :get, :index, skill_id: rails.id }
     end
-
   end
 
   describe "GET new" do
@@ -43,10 +40,8 @@ describe FeedbacksController do
         expect(assigns(:feedback)).to be_instance_of(Feedback)
       end
 
-      it "redirects to root url for unauthorized" do
-        clear_current_user
-        xhr :get, :new, mentoring_session_id: ms.id
-        expect(response).to redirect_to root_url
+      it_behaves_like "require sign in" do
+        let(:action) { xhr :get, :new, mentoring_session_id: ms.id }
       end
     end
 
@@ -61,10 +56,8 @@ describe FeedbacksController do
         expect(assigns(:feedback)).to be_instance_of(Feedback)
       end
 
-      it "redirects to root url for unauthorized" do
-        clear_current_user
-        get :new, mentoring_session_id: ms.id
-        expect(response).to redirect_to root_url
+      it_behaves_like "require sign in" do
+        let(:action) { get :new, mentoring_session_id: ms.id }
       end
     end  
   end
@@ -99,7 +92,7 @@ describe FeedbacksController do
           expect(flash[:danger]).to be nil
         end
       end
-      
+
       context "with invalid data" do
         it "does not create the feedback" do
           xhr :post, :create, mentoring_session_id: ms.id, feedback: { content: "", recommended: "1" }
@@ -116,28 +109,27 @@ describe FeedbacksController do
           expect(assigns[:feedback]).to be_instance_of(Feedback)
         end
       end
-      
-      it "redirects to root url for unauthorized" do
-        clear_current_user
-        xhr :post, :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
-        expect(response).to redirect_to root_url
-      end
 
+      it_behaves_like "require sign in" do
+        let(:action) do
+          xhr :post, :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
+        end
+      end
     end
 
     context "HTML request" do
       context "with valid data" do
         it "redirects to dashboard url" do
           post :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
-          expect(response).to redirect_to dashboard_url
+          should redirect_to dashboard_url
         end
 
         it "sets flash success" do
           post :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
-          expect(flash[:success]).to be_present
+          should set_the_flash[:success]
         end
       end
-     
+
       context "with invalid data" do
         it "sets the @feedback" do
           post :create, mentoring_session_id: ms.id, feedback: { content: "", recommended: "1" }
@@ -149,11 +141,11 @@ describe FeedbacksController do
           expect(response).to render_template :new
         end
       end
-      
-      it "redirects to root url for unauthorized" do
-        clear_current_user
-        post :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
-        expect(response).to redirect_to root_url
+
+      it_behaves_like "require sign in" do
+        let(:action) do
+          post :create, mentoring_session_id: ms.id, feedback: { content: "Awesome", recommended: "1" }
+        end
       end
     end
   end

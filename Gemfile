@@ -18,13 +18,11 @@ gem 'faker'
 
 group :development do
   gem 'thin'
-  gem 'spring'
   gem 'hirb'
   gem 'quiet_assets'
 end
 
 group :development, :test do
-  gem 'spring-commands-rspec'  
   gem 'fabrication'
   gem 'pry'
   gem 'pry-nav'
@@ -32,6 +30,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'parallel_tests'
   gem 'capybara'
   gem 'launchy'
   gem 'selenium-webdriver'

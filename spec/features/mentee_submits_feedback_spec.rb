@@ -8,7 +8,7 @@ feature "mentee submits feedback" do
    click_feedback_link
   end
 
-  scenario "with AJAX and modal", js: true do
+  scenario "with AJAX and modal", :slow, js: true do
     fill_in_feedback_form 'with_javascript' do
       expect_to_see "Feedback on Mentoring Session with"
       submit_invalid_data
@@ -21,7 +21,7 @@ feature "mentee submits feedback" do
     expect_to_see_mentoring_session_feedback_submitted(ms)
   end
 
-  scenario "with javascript turned off" do
+  scenario "with javascript turned off", :slow do
     fill_in_feedback_form do
       expect_to_see "Feedback form"
       submit_invalid_data

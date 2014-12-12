@@ -8,7 +8,7 @@ feature "mentee interacts with dashboard" do
   given(:bob) { Fabricate(:user) }
   given(:dan) { Fabricate(:user) }
 
-  scenario "mentee interacts with mentoring sessions from dashboard", js: true do
+  scenario "mentee interacts with mentoring sessions from dashboard", :slow, js: true do
     Fabricate.times(2, :skill, language: html)
     Fabricate.times(2, :skill, language: css)
     Fabricate(:skill, language: html, mentor: bob)
@@ -33,7 +33,7 @@ feature "mentee interacts with dashboard" do
     expect_to_see_modal_feedback_form
   end
 
-  scenario "mentee clicks on feedback but has javascript turned off" do
+  scenario "mentee clicks on feedback but has javascript turned off", :slow do
     ms = Fabricate(:mentoring_session, mentee: alice, mentor: bob, position: nil, status: "completed")
     sign_in(alice)
     

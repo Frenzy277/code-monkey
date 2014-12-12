@@ -3,13 +3,13 @@ development:
   encoding: unicode
   database: dev_pledge_development
   pool: 5
-  username: Tomas
+  username: <%= ENV['YOUR_USERNAME'] %>
   password: YOUR_PASSWORD
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: dev_pledge_test
+  database: dev_pledge_test<%= ENV['TEST_ENV_NUMBER'] %>
   pool: 5
-  username: Tomas
+  username: <%= ENV['YOUR_USERNAME'] %>
   password: YOUR_PASSWORD

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "user checks languages show" do
+feature "user checks mentors profile" do
   
   scenario "user clicks on mentor fullname link" do
     john = Fabricate(:user, first_name: "John", last_name: "Doe")

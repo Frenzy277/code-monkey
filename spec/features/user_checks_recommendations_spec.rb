@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "user checks recommendations" do
-  scenario "user clicks on recommendations", js: true do
+  scenario "user clicks on recommendations", :slow, js: true do
     alice = Fabricate(:user)
     doug  = Fabricate(:user)
     bob   = Fabricate(:user)

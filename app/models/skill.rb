@@ -11,7 +11,7 @@ class Skill < ActiveRecord::Base
     feedbacks.count == 0 ? "none" : feedbacks.count
   end
 
-  def mentor_sessions_total
-    mentor.mentor_sessions_not_completed.count
+  def not_completed_mentor_sessions_total
+    mentor.mentor_sessions.not_completed.count
   end
 end

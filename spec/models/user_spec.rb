@@ -20,11 +20,13 @@ describe User do
     should have_many(:mentor_sessions).class_name("MentoringSession").with_foreign_key(:mentor_id).order(:position)
   end
   it "allows email format" do
-    should allow_value('user@example.com', 'TEST.A@abc.in', 'user.ab.dot@test.ds.info', 'foo-bar2@baz2.com').for(:email)
+    should allow_value('user@example.com', 'TEST.A@abc.in',
+      'user.ab.dot@test.ds.info', 'foo-bar2@baz2.com').for(:email)
   end
 
   it "does not allow email format" do
-    should_not allow_value('foo@bar', "'z\\foo@ex.com", 'foobar.com', 'foo@bar.c', 'foo..bar@ex.com', '>!?#@ex.com', 'mel,bour@ne.aus')
+    should_not allow_value('foo@bar', "'z\\foo@ex.com", 'foobar.com',
+      'foo@bar.c', 'foo..bar@ex.com', '>!?#@ex.com', 'mel,bour@ne.aus')
       .for(:email)
   end
 
@@ -50,62 +52,6 @@ describe User do
     it "returns full first name and first initial of last name" do
       alice = Fabricate(:user, first_name: "Alice", last_name: "Wang")
       expect(alice.short_name).to eq("Alice W.")
-    end
-  end
-
-  describe "#mentor_sessions_not_completed" do
-    let(:bob) { Fabricate(:user) }
-    subject { bob.mentor_sessions_not_completed }
-
-    it "returns []" do
-      expect(subject).to match_array([])
-    end
-
-    it "returns 1 mentor session - not completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      accepted = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-      expect(subject).to match_array([accepted])
-    end
-
-    it "returns many mentor sessions - not completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      accepted = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-      pending  = Fabricate(:mentoring_session, mentor: bob, status: "pending")
-      rejected = Fabricate(:mentoring_session, mentor: bob, status: "rejected")
-      expect(subject).to match_array([accepted, pending, rejected])
-    end
-
-    it "does not return completed mentor sessions" do
-      Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      expect(subject).to match_array([])
-    end
-  end
-
-  describe "#mentor_sessions_completed" do
-    let(:bob) { Fabricate(:user) }
-    subject { bob.mentor_sessions_completed}
-
-    it "returns []" do
-      expect(subject).to match_array([])
-    end
-
-    it "returns 1 mentor session - completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-      completed = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      expect(subject).to match_array([completed])
-    end
-
-    it "returns many mentor sessions - completed" do
-      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-      completed1 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      completed2 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      completed3 = Fabricate(:mentoring_session, mentor: bob, status: "completed", position: nil)
-      expect(subject).to match_array([completed1, completed2, completed3])
-    end
-
-    it "does not return non-completed mentor sessions" do
-      Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-      expect(subject).to match_array([])
     end
   end
 

@@ -2,16 +2,21 @@ require 'spec_helper'
 
 describe MentoringSessionsController do
 
-  describe "GET index" do
-    let!(:bob) { Fabricate(:user) }
-    before { set_current_user(bob) }
-    
+  describe "GET index" do    
     it "sets the @mentoring_sessions" do
+      bob = Fabricate(:user)
+      set_current_user(bob)
       alice = Fabricate(:user)
       doug = Fabricate(:user)
       bob_skill = Fabricate(:skill, mentor: bob)
-      ms1 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: doug)
-      ms2 = Fabricate(:mentoring_session, skill: bob_skill, mentor: bob, mentee: alice)
+      ms1 = Fabricate(:mentoring_session,
+                       skill: bob_skill,
+                       mentor: bob,
+                       mentee: doug)
+      ms2 = Fabricate(:mentoring_session,
+                       skill: bob_skill,
+                       mentor: bob,
+                       mentee: alice)
       get :index
       expect(assigns(:mentoring_sessions)).to match_array([ms1, ms2])
     end
@@ -81,12 +86,14 @@ describe MentoringSessionsController do
 
       it "sets flash danger" do
         post :create, skill_id: mentor_skill.id, support: "no match"
-        should set_the_flash[:danger]
+        should set_the_flash.now[:danger]
       end
     end
 
     it_behaves_like "require sign in" do
-      let(:action) { post :create, skill_id: mentor_skill.id, support: "no match" }
+      let(:action) do
+        post :create, skill_id: mentor_skill.id, support: "no match"
+      end
     end
   end
 
@@ -99,23 +106,31 @@ describe MentoringSessionsController do
       let(:ms2) { Fabricate(:mentoring_session, mentor: bob, position: 2) }
 
       it "redirects to mentoring sessions url" do
-        patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 1, status: "pending"}, {id: ms2.id, position: 2, status: "pending"}]
-        expect(response).to redirect_to mentoring_sessions_url
+        patch :update_sessions, mentoring_sessions: [
+            {id: ms1.id, position: 1, status: "pending"},
+            {id: ms2.id, position: 2, status: "pending"}]
+        should redirect_to mentoring_sessions_url
       end
 
       context "positions" do
         it "updates the positions for mentoring sessions" do
-          patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 2, status: "pending"}, {id: ms2.id, position: 1, status: "pending"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms1.id, position: 2, status: "pending"},
+            {id: ms2.id, position: 1, status: "pending"}]
           expect(bob.mentor_sessions).to eq([ms2, ms1])
         end
 
         it "normalizes the positions for non-completed status" do
-          patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3, status: "pending"}, {id: ms2.id, position: 2, status: "pending"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms1.id, position: 3, status: "pending"},
+            {id: ms2.id, position: 2, status: "pending"}]
           expect(bob.mentor_sessions.map(&:position)).to eq([1, 2])
         end
 
         it "normalizes the positions for mixed statuses" do
-          patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3, status: "pending"}, {id: ms2.id, position: 2, status: "completed"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms1.id, position: 3, status: "pending"},
+            {id: ms2.id, position: 2, status: "completed"}]
           expect(bob.mentor_sessions.map(&:position)).to eq([1, nil])
         end
       end
@@ -123,7 +138,8 @@ describe MentoringSessionsController do
       context "status" do
         it "updates the statuses for mentoring sessions" do
           ms = Fabricate(:mentoring_session, mentor: bob, status: "pending")
-          patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "accepted"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms.id, position: 1, status: "accepted"}]
           expect(MentoringSession.first.status).to eq("accepted")
         end
       end
@@ -131,14 +147,16 @@ describe MentoringSessionsController do
       context "balance on status completed" do
         it "updates +1 balance for mentor when status is completed" do
           ms = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-          patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms.id, position: 1, status: "completed"}]
           expect(bob.reload.balance).to eq(2)
         end
 
         it "updates -1 balance for mentee when status is completed" do
           alice = Fabricate(:user)
           ms = Fabricate(:mentoring_session, mentee: alice, mentor: bob, status: "accepted")
-          patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms.id, position: 1, status: "completed"}]
           expect(alice.reload.balance).to eq(0)
         end
       end
@@ -146,7 +164,8 @@ describe MentoringSessionsController do
       context "code helped projects on status completed" do
         it "updates +1 helped_total for mentor when status is completed" do
           ms = Fabricate(:mentoring_session, mentor: bob, status: "accepted")
-          patch :update_sessions, mentoring_sessions: [{id: ms.id, position: 1, status: "completed"}]
+          patch :update_sessions, mentoring_sessions: [
+            {id: ms.id, position: 1, status: "completed"}]
           expect(Skill.first.helped_total).to eq(1)
         end
       end
@@ -158,16 +177,20 @@ describe MentoringSessionsController do
       
       it "redirects to mentoring sessions url if params are missing" do
         patch :update_sessions
-        expect(response).to redirect_to mentoring_sessions_url
+        should redirect_to mentoring_sessions_url
       end
 
       it "redirects to mentoring sessions url" do
-        patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3.2, status: "pending"}, {id: ms2.id, position: 2, status: "pending"}]
-        expect(response).to redirect_to mentoring_sessions_url
+        patch :update_sessions, mentoring_sessions: [
+          {id: ms1.id, position: 3.2, status: "pending"},
+          {id: ms2.id, position: 2, status: "pending"}]
+        should redirect_to mentoring_sessions_url
       end
 
       it "sets flash danger" do
-        patch :update_sessions, mentoring_sessions: [{id: ms1.id, position: 3.5, status: "pending"}, {id: ms2.id, position: 2, status: "pending"}]
+        patch :update_sessions, mentoring_sessions: [
+          {id: ms1.id, position: 3.5, status: "pending"},
+          {id: ms2.id, position: 2, status: "pending"}]
         expect(flash[:danger]).to be_present
       end
 

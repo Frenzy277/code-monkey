@@ -23,7 +23,7 @@
                   = hidden_field_tag "mentoring_sessions[][id]", mentoring_session.id
                   %td= text_field_tag "mentoring_sessions[][position]", mentoring_session.position, class: "form-control"
                   %td= mentoring_session.skill.language.name
-                  %td= mentoring_session.created_at
+                  %td= l mentoring_session.created_at, format: :standard_time
                   %td= link_to mentoring_session.mentee.full_name, user_path(mentoring_session.mentee)
                   %td= mentoring_session.support
                   %td= select_tag "mentoring_sessions[][status]", options_for_select(status_options, mentoring_session.status), class: "form-control"

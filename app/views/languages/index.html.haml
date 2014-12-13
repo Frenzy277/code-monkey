@@ -31,7 +31,7 @@
             %tr
               %td= (index + 1)
               %td= mentee_session.skill.language.name
-              %td= short_date(mentee_session.created_at)
+              %td= l mentee_session.created_at, format: :short_date
               %td= mentee_session.status
               %td{id: "feedback_ms_#{mentee_session.id}"}= secondary_status(mentee_session)
               %td= link_to mentee_session.mentor_short_name, user_path(mentee_session.mentor)

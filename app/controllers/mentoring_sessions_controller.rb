@@ -2,7 +2,7 @@ class MentoringSessionsController < ApplicationController
   before_action :require_user
 
   def index
-    @mentoring_sessions = current_user.mentor_sessions_not_completed
+    @mentoring_sessions = current_user.mentor_sessions.not_completed
   end
 
   def create
@@ -29,7 +29,7 @@ class MentoringSessionsController < ApplicationController
 private
 
   def set_new_position(skill)
-    skill.mentor_sessions_total + 1
+    skill.not_completed_mentor_sessions_total + 1
   end
 
   def create_mentoring_session(skill)    
@@ -43,7 +43,7 @@ private
     if mentoring_session.save
       flash[:success] = "Great, you have signed up for #{mentoring_session.support} from #{skill.mentor.full_name}. Check your dashboard 'Signed for' table for status."
     else
-      flash[:danger] = "You are not allowed to do that."
+      flash.now[:danger] = "You are not allowed to do that."
     end
   end
 

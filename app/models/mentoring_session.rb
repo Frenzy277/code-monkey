@@ -7,8 +7,11 @@ class MentoringSession < ActiveRecord::Base
   validates_presence_of :status, :skill, :mentee, :support
   validates_numericality_of :position, only_integer: true, unless: :completed?
   validates_inclusion_of :support, within: %w(mentoring code\ review)
-  validates_inclusion_of :status, within: %w(pending accepted rejected completed)
+  VALID_STATUS = %w(pending accepted rejected completed)
+  validates_inclusion_of :status, within: VALID_STATUS
   validates_absence_of :position, if: :completed?
+
+  scope :not_completed, -> { where.not(status: "completed") }
 
   delegate :short_name, to: :mentor, prefix: :mentor
 
@@ -27,5 +30,17 @@ class MentoringSession < ActiveRecord::Base
 
   def completed?
     status == "completed"
+  end
+
+  def pending?
+    status == "pending"
+  end
+
+  def accepted?
+    status == "accepted"
+  end
+
+  def rejected?
+    status == "rejected"
   end
 end

@@ -31,13 +31,12 @@ describe Skill do
     end
   end
 
-  describe "#mentor_sessions_total" do
+  describe "#not_completed_mentor_sessions_total" do
     it "returns count of all mentor sessions" do
       bob = Fabricate(:user)
       skill = Fabricate(:skill, mentor: bob)
       Fabricate.times(2, :mentoring_session, skill: skill, mentor: bob)      
-      expect(Skill.first.mentor_sessions_total).to eq(2)
+      expect(Skill.first.not_completed_mentor_sessions_total).to eq(2)
     end
-  end
-  
+  end  
 end

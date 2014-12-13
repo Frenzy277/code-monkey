@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  time:
+    formats:
+      standard_time: "%m/%d/%Y %I:%M%P %Z"
+      short_date: "%m/%d/%Y"

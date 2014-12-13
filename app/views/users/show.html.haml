@@ -34,5 +34,5 @@
                 %p.thumbnail-buttons
                   Ask for:
                   = link_to "Mentoring", mentoring_sessions_path(skill_id: skill.id, support: "mentoring"), method: :post, class: "btn btn-primary #{'disabled' if current_user.mentor?(skill)}"
-                  = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if current_user.mentor?(skill)}"
+                  = link_to "Code Review", mentoring_sessions_path(skill_id: skill.id, support: "code review"), method: :post, class: "btn btn-default #{'disabled' if logged_in? && current_user.mentor?(skill)}"
 %div.skill_feedbacks

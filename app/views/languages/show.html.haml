@@ -17,7 +17,7 @@
             %p
               Experience since:
               %span.badge= skill.experience.year
-            %p Code helped in: #{skill.helped_total} projects
+            %p Code helped in: #{pluralize(skill.helped_total, "project")}
             %p.recommendations
               = link_to "Recommendations:", skill_feedbacks_path(skill), remote: true
               %span.badge= skill.total_feedbacks

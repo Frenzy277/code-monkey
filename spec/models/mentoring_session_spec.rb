@@ -57,12 +57,12 @@ describe MentoringSession do
   describe "#completed?" do
     it "returns true if status is completed" do
       Fabricate(:mentoring_session, status: "completed", position: nil)
-      expect(MentoringSession.first.completed?).to be true
+      expect(MentoringSession.first).to be_completed
     end
 
     it "returns false if status is not completed" do
       Fabricate(:mentoring_session, status: "pending")
-      expect(MentoringSession.first.completed?).to be false
+      expect(MentoringSession.first).not_to be_completed
     end
   end
 

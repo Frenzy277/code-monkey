@@ -2,10 +2,13 @@ require 'spec_helper'
 
 feature "mentee submits feedback" do
   given!(:alice) { Fabricate(:user) }
-  given!(:ms) { Fabricate(:mentoring_session, mentee: alice, position: nil, status: "completed") }
+  given!(:ms) do
+    Fabricate(:mentoring_session, mentee: alice, position: nil, status: "completed")
+  end
+  
   background do
-   sign_in(alice)
-   click_feedback_link
+    sign_in(alice)
+    click_feedback_link
   end
 
   scenario "with AJAX and modal", :slow, js: true do
@@ -17,11 +20,13 @@ feature "mentee submits feedback" do
     end
 
     expect_to_not_see "Submit Feedback"
-    expect(page).to have_no_css(".modal")
-    expect_to_see_mentoring_session_feedback_submitted(ms)
+    expect_modal_to_be_gone
+    within_sign_for_table(ms) do
+      expect_to_see "submitted"
+    end
   end
 
-  scenario "with javascript turned off", :slow do
+  scenario "with javascript turned off" do
     fill_in_feedback_form do
       expect_to_see "Feedback form"
       submit_invalid_data
@@ -31,7 +36,9 @@ feature "mentee submits feedback" do
 
     expect_url(dashboard_url)
     expect_to_see("Thank you for submitting the feedback")
-    expect_to_see_mentoring_session_feedback_submitted(ms)
+    within_sign_for_table(ms) do
+      expect_to_see "submitted"
+    end
   end
 end
 
@@ -43,26 +50,20 @@ end
 
 def fill_in_feedback_form(with_js_option = nil, &block)
   if with_js_option
-    within(:css, ".modal") do
-      yield
-    end
+    within(:css, ".modal") { yield }
   else
     yield
   end
 end
 
-def expect_to_see_mentoring_session_feedback_submitted(ms)
+def expect_modal_to_be_gone
+  expect(page).to have_no_css(".modal")
+end
+
+def within_sign_for_table(ms, &block)
   within(:xpath, "//td[@id='feedback_ms_#{ms.id}']") do
-    expect(page).to have_content "submitted"
+    yield
   end
-end
-
-def expect_to_see(text)
-  expect(page).to have_content text
-end
-
-def expect_to_not_see(text)
-  expect(page).to have_no_content text
 end
 
 def submit_invalid_data

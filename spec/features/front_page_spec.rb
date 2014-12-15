@@ -7,23 +7,23 @@ feature "front page content" do
   background { visit root_path }
 
   scenario "has logo" do
-    expect(page).to have_content "{ dev: pledge }"
+    expect_to_see("{ dev: pledge }")
   end
 
   scenario "has working sign up link" do
     click_on "Sign up"
-    expect_url(sign_up_url)
+    expect_to_be_in(sign_up_url)
   end
 
   scenario "has working sign in link" do
     click_on "Sign in"
-    expect_url(sign_in_url)
+    expect_to_be_in(sign_in_url)
   end
 
   scenario "visitor interacts with language links" do
     within(:css, '.languages') do
       click_on "HTML"
-      expect(current_path).to eq(language_path(html))
+      expect_to_be_in(language_url(html))
     end
   end
 
